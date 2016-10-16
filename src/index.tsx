@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 class App extends React.Component<{}, {}> {
   render() {
@@ -7,4 +9,8 @@ class App extends React.Component<{}, {}> {
   }
 }
 
-render(<App />, document.getElementById('root'))
+render(
+  <Provider store={ createStore((x: any) => x) }>
+    <App />
+  </Provider>,
+  document.getElementById('root'))
