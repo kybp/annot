@@ -7,6 +7,8 @@ import reducer from './reducers'
 
 render(
   <Provider store={ createStore(reducer) }>
-    <App />
+    <div className="container">
+      <App />
+    </div>
   </Provider>,
   document.getElementById('root'))
