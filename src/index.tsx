@@ -2,15 +2,11 @@ import * as React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-
-class App extends React.Component<{}, {}> {
-  render() {
-    return <h1>Hi...</h1>
-  }
-}
+import App from './components/App'
+import reducer from './reducers'
 
 render(
-  <Provider store={ createStore((x: any) => x) }>
+  <Provider store={ createStore(reducer) }>
     <App />
   </Provider>,
   document.getElementById('root'))
