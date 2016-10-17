@@ -12,6 +12,7 @@ class App extends React.Component<AppProps, {}> {
   render() {
     return (
       <div>
+        <h1>Upload</h1>
         <SnippetForm />
         <SnippetDisplay snippets={ this.props.snippets } />
       </div>
