@@ -18,14 +18,20 @@ class SnippetForm extends React.Component<SnippetFormProps, ISnippet> {
 
   componentDidMount() {
     $(findDOMNode(this)).on('shown.bs.modal', this.initialFocus)
+    $(findDOMNode(this)).on('hidden.bs.modal', this.clearFields.bind(this))
   }
 
   componentWillUnmount() {
     $(findDOMNode(this)).off('shown.bs.modal', this.initialFocus)
+    $(findDOMNode(this)).off('hidden.bs.modal', this.clearFields.bind(this))
   }
 
   initialFocus() {
     document.getElementById('snippet-title-input').focus()
+  }
+
+  clearFields() {
+    this.setState({ title: '', body: '' })
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -34,7 +40,7 @@ class SnippetForm extends React.Component<SnippetFormProps, ISnippet> {
       title: this.state.title,
       body:  this.state.body
     }))
-    this.setState({ title: '', body: '' })
+    this.clearFields()
   }
 
   handleChangeFor(slot: string) {
@@ -61,7 +67,7 @@ class SnippetForm extends React.Component<SnippetFormProps, ISnippet> {
                 <h4 className="modal-title">New snippet</h4>
               </div>
               <div className="modal-body">
-                <form onSubmit={ this.handleSubmit.bind(this) }>
+                <form>
                   <div className="form-group">
                     <input type="text" className="form-control"
                            id="snippet-title-input"
@@ -75,8 +81,17 @@ class SnippetForm extends React.Component<SnippetFormProps, ISnippet> {
                               value={ this.state.body }
                               onChange={ this.handleChangeFor('body') }/>
                   </div>
-                  <input type="submit" className="btn btn-primary" value="Save" />
                 </form>
+              </div>
+              <div className="modal-footer">
+                <button onClick={ this.clearFields.bind(this) }
+                        className="btn btn-default">
+                  Cancel
+                </button>
+                <button onClick={ this.handleSubmit.bind(this) }
+                        className="btn btn-primary">
+                  Save
+                </button>
               </div>
             </div>
           </div>
