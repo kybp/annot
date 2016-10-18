@@ -19,7 +19,7 @@ module.exports = {
   module: {
     loaders: [{
       test:    /\.tsx?$/,
-      loader:  'ts-loader',
+      loader:  'babel-loader!ts-loader',
       exclude: /node_modules/
     }],
     preLoaders: [{
