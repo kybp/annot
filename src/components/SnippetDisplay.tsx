@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
+import { addSelection } from '../actions'
 import { ISnippet } from './Snippet'
 
 /*
@@ -19,19 +21,40 @@ const SnippetNavItem = (
   )
 }
 
-const SnippetTabPane = (
-  { snippet, active }: { snippet: ISnippet, active: boolean }
-) => {
-  return (
-    <div id={ `${snippet.title}-tab-pane` }
-         className={ 'tab-pane' + (active ? ' active' : '') }>
-      { snippet.body }
-    </div>
-  )
+interface SnippetTabPaneProps {
+  snippet:  ISnippet
+  active:   boolean
+  dispatch: (action: any) => void
+}
+
+class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
+  handleMouseUp() {
+    const selection = window.getSelection()
+    if (! selection.isCollapsed) {
+      const start = Math.min(selection.anchorOffset, selection.focusOffset)
+      const end   = Math.max(selection.anchorOffset, selection.focusOffset)
+
+      this.props.dispatch(addSelection({
+        snippet: this.props.snippet,
+        start, end
+      }))
+    }
+  }
+
+  render() {
+    return (
+      <div id={ `${this.props.snippet.title}-tab-pane` }
+           className={ 'tab-pane' + (this.props.active ? ' active' : '') }
+           onMouseUp={ this.handleMouseUp.bind(this) }>
+        { this.props.snippet.body }
+      </div>
+    )
+  }
 }
 
 interface SnippetDisplayProps {
-  snippets: ISnippet[]
+  snippets:  ISnippet[]
+  dispatch?: (action: any) => void
 }
 
 class SnippetDisplay extends React.Component<SnippetDisplayProps, {}> {
@@ -53,10 +76,12 @@ class SnippetDisplay extends React.Component<SnippetDisplayProps, {}> {
           </ul>
         </div>
         <div className="card-block tab-content">
-          <SnippetTabPane snippet={ firstSnippet } active={ true } />
+          <SnippetTabPane snippet={ firstSnippet } active={ true }
+                          dispatch={ this.props.dispatch }/>
           { otherSnippets.map((snippet) => (
               <SnippetTabPane key={ `${snippet.title}-tab-pane` }
-                              snippet={ snippet } active={ false } />
+                              snippet={ snippet } active={ false }
+                              dispatch={ this.props.dispatch }/>
             ))}
         </div>
       </div>
@@ -64,4 +89,4 @@ class SnippetDisplay extends React.Component<SnippetDisplayProps, {}> {
   }
 }
 
-export default SnippetDisplay
+export default connect()(SnippetDisplay)
