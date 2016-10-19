@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
-import Actions from './actions'
-import { ISnippet } from './components/Snippet'
+import Actions from '../actions'
+import { ISnippet } from '../components/Snippet'
+import selections from './selections'
 
 const snippets = (state: ISnippet[] = [], action: any) => {
   switch (action.type) {
@@ -11,4 +12,4 @@ const snippets = (state: ISnippet[] = [], action: any) => {
   }
 }
 
-export default combineReducers({ snippets })
+export default combineReducers({ selections, snippets })
