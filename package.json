@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
+    "doc": "typedoc --out ./doc src",
     "test": "karma start"
   },
   "keywords": [],
@@ -39,6 +40,7 @@
     "html-webpack-plugin": "^2.22.0",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.9.1",
+    "typedoc": "^0.5.1",
     "typescript": "^2.0.3",
     "webpack": "^1.13.2"
   }

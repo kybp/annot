@@ -1,8 +1,5 @@
 import Actions from '../actions'
-
-type SelectionState = {
-  [key: string]: { start: number, end: number }[]
-}
+import { SelectionState } from '../components/SnippetDisplay'
 
 const selections = (state: SelectionState = {}, action: any) => {
   switch (action.type) {
