@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { addSelection } from '../actions'
 import { ISnippet } from './Snippet'
 
-declare var $: any
-
 /*
  * Using snippet titles directly in id's like this trusts the user to be very
  * well-behaved. Just a temporary solution.
@@ -37,17 +35,37 @@ interface SnippetTabPaneProps {
 
 class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
   /**
-   * Convert a Selection into a tuple of start and end indexes into the 
+   * Convert a Selection into a tuple of start and end indexes into the
    * snippet body, indicating the half-open range that is to be selected.
    *
    * @param selection  The selection to convert
    * @returns  Start and end indexes into the node's text
    */
   findOffsets(selection: Selection): [number, number] {
-    const node  = $(findDOMNode(this))
-    const start = Math.min(selection.anchorOffset, selection.focusOffset)
-    const end   = Math.max(selection.anchorOffset, selection.focusOffset)
-    return [start, end]
+    const root   = findDOMNode(this)
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+    const children: Node[] = []
+
+    {
+      let node: Node
+      while (node = walker.nextNode()) children.push(node)
+    }
+
+    let i     = 0
+    let start = 0
+
+    for (let child of children) {
+      if (child === selection.anchorNode) {
+        start = i + selection.anchorOffset
+      }
+
+      if (child === selection.focusNode) {
+        const end = i + selection.focusOffset
+        return [Math.min(start, end), Math.max(start, end)]
+      }
+
+      i += child.textContent.length
+    }
   }
 
   handleMouseUp() {
@@ -66,16 +84,17 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     const body = this.props.snippet.body
     const result: any[] = []
     let last = 0
+
     this.props.selections.forEach((selection) => {
       if (selection.start !== last) {
         result.push(
-          <span>
+          <span key={ `${this.props.snippet.title}-${last}-${selection.start}` }>
             { body.slice(last, selection.start) }
           </span>
         )
       }
       result.push(
-        <mark>
+        <mark key={ `${this.props.snippet.title}-${selection.start}-${selection.end}` }>
           { body.slice(selection.start, selection.end) }
         </mark>
       )
@@ -84,7 +103,11 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     })
 
     if (last !== body.length) {
-      result.push(<span>{ body.slice(last, body.length) }</span>)
+      result.push(
+        <span key={ `${this.props.snippet.title}-last` }>
+          { body.slice(last, body.length) }
+        </span>
+      )
     }
 
     return result
