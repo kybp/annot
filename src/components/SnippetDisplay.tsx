@@ -80,12 +80,20 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     }
   }
 
+  /**
+   * Highlight selections in the snippet's body text.
+   *
+   * @returns  An array of elements making up the styled body text of
+   * the snippet.
+   */
   prepareBody() {
     const body = this.props.snippet.body
     const result: any[] = []
-    let last = 0
 
-    this.props.selections.forEach((selection) => {
+    let last = 0
+    this.props.selections.slice()
+        .sort((a, b) => b.start - a.start)
+        .forEach((selection) => {
       if (selection.start !== last) {
         result.push(
           <span key={ `${this.props.snippet.title}-${last}-${selection.start}` }>
@@ -93,8 +101,10 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
           </span>
         )
       }
+
       result.push(
-        <mark key={ `${this.props.snippet.title}-${selection.start}-${selection.end}` }>
+        <mark key={
+          `${this.props.snippet.title}-${selection.start}-${selection.end}` }>
           { body.slice(selection.start, selection.end) }
         </mark>
       )
