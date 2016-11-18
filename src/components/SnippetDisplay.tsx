@@ -33,10 +33,16 @@ interface SnippetTabPaneProps {
   dispatch:   (action: any) => void
 }
 
+/**
+ * A component for displaying a single snippet body and allowing the
+ * user to make selections from it by highlighting parts.
+ */
 class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
+
   /**
-   * Convert a Selection into a tuple of start and end indexes into the
-   * snippet body, indicating the half-open range that is to be selected.
+   * Convert a Selection into a tuple of start and end indexes into
+   * the snippet body, indicating the half-open range that is to be
+   * selected.
    *
    * @param selection  The selection to convert
    * @returns  Start and end indexes into the node's text
@@ -68,6 +74,10 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     }
   }
 
+  /**
+   * Trigger the check to see if the user highlighted any text, and if
+   * so, add that selection to the Redux store.
+   */
   handleMouseUp() {
     const selection = window.getSelection()
 
@@ -140,6 +150,10 @@ interface SnippetDisplayProps {
   dispatch?:   (action: any) => void
 }
 
+/**
+ * A container for displaying snippets and allowing the user to make
+ * selections from the snippet bodies.
+ */
 class SnippetDisplay extends React.Component<SnippetDisplayProps, {}> {
   selectionsFor(snippet: ISnippet) {
     return this.props.selections[snippet.title]
