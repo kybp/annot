@@ -37,5 +37,26 @@ describe('selections reducer', () => {
       const difference    = updatedLength - initialLength
       assert.strictEqual(difference, 1)
     })
+
+    it('does not add collapsed selections', () => {
+      const initialLength = beforeAdd[snippet.title].length
+      const action        = addSelection({ snippet, start: 0, end: 0 })
+      const updatedState  = reducer(beforeAdd, action)
+      const updatedLength = updatedState[snippet.title].length
+      const difference    = updatedLength - initialLength
+      assert.strictEqual(difference, 0)
+    })
+
+    it('keeps the list of selections sorted', () => {
+      const selections = [
+        { snippet, start: 5, end: 6 },
+        { snippet, start: 1, end: 2 },
+        { snippet, start: 3, end: 4 }
+      ].map(addSelection).reduce(reducer, beforeAdd)[snippet.title]
+
+      for (let i = 1; i < selections.length; ++i) {
+        assert.ok(selections[i - 1].start <= selections[i].start)
+      }
+    })
   })
 })

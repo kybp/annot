@@ -101,9 +101,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     const result: any[] = []
 
     let last = 0
-    this.props.selections.slice()
-        .sort((a, b) => b.start - a.start)
-        .forEach((selection) => {
+    this.props.selections.forEach((selection) => {
       if (selection.start !== last) {
         result.push(
           <span key={ `${this.props.snippet.title}-${last}-${selection.start}` }>
