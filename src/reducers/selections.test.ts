@@ -58,5 +58,26 @@ describe('selections reducer', () => {
         assert.ok(selections[i - 1].start <= selections[i].start)
       }
     })
+
+    it('merges touching selections into one', () => {
+      const [start, middle, end] = [0, 2, 4]
+      const firstAction    = addSelection({ snippet, start, end: middle })
+      const afterFirstAdd  = reducer(beforeAdd,      firstAction)
+      const secondAction   = addSelection({ snippet, start: middle, end })
+      const afterSecondAdd = reducer(afterFirstAdd, secondAction)
+      const selections     = afterSecondAdd[snippet.title]
+      assert.deepEqual(selections, [{ start, end }])
+    })
+
+    it('does not merge non-touching selections into one', () => {
+      const firstEnd       = 1
+      const firstAction    = addSelection({ snippet, start: 0, end: firstEnd })
+      const afterFirstAdd  = reducer(beforeAdd, firstAction)
+      const secondAction   = addSelection({ snippet,
+                                            start: firstEnd + 1,
+                                            end:   firstEnd + 2 })
+      const afterSecondAdd = reducer(afterFirstAdd, secondAction)
+      assert.strictEqual(afterSecondAdd[snippet.title].length, 2)
+    })
   })
 })

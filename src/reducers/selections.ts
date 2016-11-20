@@ -11,8 +11,19 @@ const selections = (state: SelectionState = {}, action: any) => {
       end:   action.end
     }).sort((a, b) => a.start - b.start)
 
+    let result: { start: number, end: number }[] = []
+    for (let selection of selections) {
+      let i = result.length - 1
+
+      if (i >= 0 && result[i].end === selection.start) {
+        result[i].end = selection.end
+      } else {
+        result.push(selection)
+      }
+    }
+
     return Object.assign({}, state, {
-      [action.snippet.title]: selections
+      [action.snippet.title]: result
     })
   case Actions.ADD_SNIPPET:
     return Object.assign({}, state, { [action.title]: [] })
