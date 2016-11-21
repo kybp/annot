@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Snippet } from '../reducers/snippets'
+import AnnotationForm from './AnnotationForm'
 import SnippetDisplay from './SnippetDisplay'
 import SnippetForm from './SnippetForm'
 
@@ -13,6 +14,7 @@ class App extends React.Component<AppProps, {}> {
     return (
       <div>
         <h1>Upload</h1>
+        <AnnotationForm />
         <SnippetForm />
         <SnippetDisplay snippets={ this.props.snippets } />
       </div>

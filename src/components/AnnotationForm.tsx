@@ -1,19 +1,24 @@
 import * as React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
-import { addSnippet } from '../actions'
-import { Snippet } from '../reducers/snippets'
+import { addAnnotation } from '../actions'
+import { SnippetSelections } from '../reducers/selections'
 
 declare var $: any
 
-interface SnippetFormProps {
-  dispatch?: (action: any) => void
+interface Props {
+  selections?: SnippetSelections
+  dispatch?:   (action: any) => void
 }
 
-class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
+interface State {
+  body: string
+}
+
+class AnnotationForm extends React.Component<Props, State> {
   constructor() {
     super()
-    this.state = { title: '', body: '' }
+    this.state = { body: '' }
   }
 
   componentDidMount() {
@@ -27,59 +32,51 @@ class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
   }
 
   initialFocus() {
-    document.getElementById('snippet-title-input').focus()
+    document.getElementById('annotation-body-input').focus()
   }
 
   clearFields() {
-    this.setState({ title: '', body: '' })
+    this.setState({ body: '' })
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    this.props.dispatch(addSnippet({
-      title: this.state.title,
-      body:  this.state.body
+    this.props.dispatch(addAnnotation({
+      body:       this.state.body,
+      selections: this.props.selections
     }))
     this.clearFields()
   }
 
-  handleChangeFor(slot: string) {
-    return (event: any) => {
-      this.setState({ [slot]: event.target.value } as Snippet)
-    }
+  updateBody(event: any) {
+    this.setState({ body: event.target.value })
   }
 
   render() {
     return (
       <div>
-        <button data-toggle="modal" data-target="#snippet-modal"
+        <button data-toggle="modal" data-target="#annotation-modal"
                 className="btn btn-primary">
-          Add snippet
+          Add annotation
         </button>
 
-        <div id="snippet-modal" className="modal fade" tabIndex={ -1 }>
+        <div id="annotation-modal" className="modal fade" tabIndex={ -1 }>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
                 <button className="close" data-dismiss="modal">
                   &times;
                 </button>
-                <h4 className="modal-title">New snippet</h4>
+                <h4 className="modal-title">New annotation</h4>
               </div>
               <div className="modal-body">
                 <form>
                   <div className="form-group">
                     <input type="text" className="form-control"
-                           id="snippet-title-input"
-                           placeholder="Snippet title"
-                           value={ this.state.title }
-                           onChange={ this.handleChangeFor('title') } />
-                  </div>
-                  <div className="form-group">
-                    <textarea className="form-control"
-                              placeholder="Snippet body"
-                              value={ this.state.body }
-                              onChange={ this.handleChangeFor('body') }/>
+                           id="annotation-body-input"
+                           placeholder="Annotation"
+                           value={ this.state.body }
+                           onChange={ this.updateBody.bind(this) } />
                   </div>
                 </form>
               </div>
@@ -103,4 +100,11 @@ class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
   }
 }
 
-export default connect()(SnippetForm)
+const mapStateToProps = (
+  { selections }: { selections: SnippetSelections },
+  ownProps: Props
+): Props => {
+  return Object.assign({}, ownProps, { selections })
+}
+
+export default connect(mapStateToProps)(AnnotationForm)
