@@ -79,5 +79,32 @@ describe('selections reducer', () => {
       const afterSecondAdd = reducer(afterFirstAdd, secondAction)
       assert.strictEqual(afterSecondAdd[snippet.title].length, 2)
     })
+
+    it('merges a contained selection into its containing selection', () => {
+      const [outerStart, outerEnd] = [0, 4]
+      const [innerStart, innerEnd] = [1, 3]
+      const afterFirstAdd  = reducer(
+        beforeAdd,
+        addSelection({ snippet, start: outerStart, end: outerEnd }))
+      const afterSecondAdd = reducer(
+        afterFirstAdd,
+        addSelection({ snippet, start: innerStart, end: innerEnd }))
+      assert.deepEqual(
+        afterSecondAdd[snippet.title],
+        [{ start: outerStart, end: outerEnd }])
+    })
+
+    it('merges overlapping selections', () => {
+      const [firstStart, secondStart, firstEnd, secondEnd] = [0, 1, 2, 3]
+      const afterFirstAdd  = reducer(
+        beforeAdd,
+        addSelection({ snippet, start: firstStart,  end: firstEnd }))
+      const afterSecondAdd = reducer(
+        afterFirstAdd,
+        addSelection({ snippet, start: secondStart, end: secondEnd }))
+      assert.deepEqual(
+        afterSecondAdd[snippet.title],
+        [{ start: firstStart, end: secondEnd }])
+    })
   })
 })

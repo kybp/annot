@@ -15,8 +15,9 @@ const selections = (state: SelectionState = {}, action: any) => {
     for (let selection of selections) {
       let i = result.length - 1
 
-      if (i >= 0 && result[i].end === selection.start) {
-        result[i].end = selection.end
+      if (i >= 0 && result[i].end >= selection.start) {
+        // Combine this selection with the previous one
+        result[i].end = Math.max(result[i].end, selection.end)
       } else {
         result.push(selection)
       }
