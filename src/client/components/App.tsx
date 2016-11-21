@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Snippet } from '../reducers/snippets'
 import AnnotationForm from './AnnotationForm'
-import SnippetDisplay from './SnippetDisplay'
+import SnippetSelectionPicker from './SnippetSelectionPicker'
 import SnippetForm from './SnippetForm'
 import UploadButton from './UploadButton'
 
@@ -18,7 +18,7 @@ class App extends React.Component<AppProps, {}> {
         <SnippetForm    />
         <AnnotationForm />
         <UploadButton   />
-        <SnippetDisplay snippets={ this.props.snippets } />
+        <SnippetSelectionPicker snippets={ this.props.snippets } />
       </div>
     )
   }
