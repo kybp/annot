@@ -4,6 +4,7 @@ import { Snippet } from '../reducers/snippets'
 import AnnotationForm from './AnnotationForm'
 import SnippetDisplay from './SnippetDisplay'
 import SnippetForm from './SnippetForm'
+import UploadButton from './UploadButton'
 
 interface AppProps {
   snippets: Snippet[]
@@ -14,8 +15,9 @@ class App extends React.Component<AppProps, {}> {
     return (
       <div>
         <h1>Upload</h1>
+        <SnippetForm    />
         <AnnotationForm />
-        <SnippetForm />
+        <UploadButton   />
         <SnippetDisplay snippets={ this.props.snippets } />
       </div>
     )

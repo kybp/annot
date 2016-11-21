@@ -6,6 +6,7 @@ enum Actions {
   ADD_ANNOTATION,
   ADD_SELECTION,
   ADD_SNIPPET,
+  DO_UPLOAD,
 }
 
 export default Actions
@@ -30,5 +31,11 @@ export const addSnippet = ({ title, body }: Snippet) => {
   return {
     type: Actions.ADD_SNIPPET,
     title, body
+  }
+}
+
+export const doUpload = () => {
+  return {
+    type: Actions.DO_UPLOAD
   }
 }
