@@ -1,7 +1,12 @@
 import Actions from '../actions'
-import { SelectionState } from '../components/SnippetDisplay'
 
-const selections = (state: SelectionState = {}, action: any) => {
+export type HighlightSelection = { start: number, end: number }
+
+export type SnippetSelections = {
+  [key: string]: HighlightSelection[]
+}
+
+const selections = (state: SnippetSelections = {}, action: any) => {
   switch (action.type) {
   case Actions.ADD_SELECTION:
     if (action.start === action.end) return state

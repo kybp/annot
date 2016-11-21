@@ -2,7 +2,7 @@ import * as React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import { addSnippet } from '../actions'
-import { ISnippet } from './Snippet'
+import { Snippet } from '../reducers/snippets'
 
 declare var $: any
 
@@ -10,19 +10,19 @@ interface SnippetFormProps {
   dispatch?: (action: any) => void
 }
 
-class SnippetForm extends React.Component<SnippetFormProps, ISnippet> {
+class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
   constructor() {
     super()
     this.state = { title: '', body: '' }
   }
 
   componentDidMount() {
-    $(findDOMNode(this)).on('shown.bs.modal', this.initialFocus)
+    $(findDOMNode(this)).on('shown.bs.modal',  this.initialFocus)
     $(findDOMNode(this)).on('hidden.bs.modal', this.clearFields.bind(this))
   }
 
   componentWillUnmount() {
-    $(findDOMNode(this)).off('shown.bs.modal', this.initialFocus)
+    $(findDOMNode(this)).off('shown.bs.modal',  this.initialFocus)
     $(findDOMNode(this)).off('hidden.bs.modal', this.clearFields.bind(this))
   }
 
@@ -45,7 +45,7 @@ class SnippetForm extends React.Component<SnippetFormProps, ISnippet> {
 
   handleChangeFor(slot: string) {
     return (event: any) => {
-      this.setState({ [slot]: event.target.value } as ISnippet)
+      this.setState({ [slot]: event.target.value } as Snippet)
     }
   }
 

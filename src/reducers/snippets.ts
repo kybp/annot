@@ -1,7 +1,11 @@
 import Actions from '../actions'
-import { ISnippet } from '../components/Snippet'
 
-const snippets = (state: ISnippet[] = [], action: any) => {
+export type Snippet = {
+  title: string,
+  body:  string
+}
+
+const snippets = (state: Snippet[] = [], action: any) => {
   switch (action.type) {
   case Actions.ADD_SNIPPET:
     return state.concat({ title: action.title, body: action.body })

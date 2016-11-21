@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { ISnippet } from './Snippet'
+import { Snippet } from '../reducers/snippets'
 import SnippetDisplay from './SnippetDisplay'
 import SnippetForm from './SnippetForm'
 
 interface AppProps {
-  snippets: ISnippet[]
+  snippets: Snippet[]
 }
 
 class App extends React.Component<AppProps, {}> {
@@ -20,7 +20,7 @@ class App extends React.Component<AppProps, {}> {
   }
 }
 
-const mapStateToProps = ({ snippets }: { snippets: ISnippet[] }) => ({
+const mapStateToProps = ({ snippets }: { snippets: Snippet[] }) => ({
   snippets
 })
 

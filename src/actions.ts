@@ -1,6 +1,7 @@
-import { ISnippet } from './components/Snippet'
+import { Snippet } from './reducers/snippets'
 
 enum Actions {
+  ADD_ANNOTATION,
   ADD_SELECTION,
   ADD_SNIPPET,
 }
@@ -8,7 +9,7 @@ enum Actions {
 export default Actions
 
 export const addSelection = (
-  { snippet, start, end }: { snippet: ISnippet, start: number, end: number }
+  { snippet, start, end }: { snippet: Snippet, start: number, end: number }
 ) => {
   return {
     type: Actions.ADD_SELECTION,
@@ -16,7 +17,7 @@ export const addSelection = (
   }
 }
 
-export const addSnippet = ({ title, body }: ISnippet) => {
+export const addSnippet = ({ title, body }: Snippet) => {
   return {
     type: Actions.ADD_SNIPPET,
     title, body

@@ -2,16 +2,13 @@ import * as React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import { addSelection } from '../actions'
-import { ISnippet } from './Snippet'
+import { Snippet } from '../reducers/snippets'
+import { HighlightSelection, SnippetSelections } from '../reducers/selections'
 
 /*
  * Using snippet titles directly in id's like this trusts the user to be very
  * well-behaved. Just a temporary solution.
  */
-
-export type SelectionState = {
-  [key: string]: { start: number, end: number }[]
-}
 
 const SnippetNavItem = (
   { title, active }: { title: string, active: boolean }
@@ -27,9 +24,9 @@ const SnippetNavItem = (
 }
 
 interface SnippetTabPaneProps {
-  snippet:    ISnippet
+  snippet:    Snippet
   active:     boolean
-  selections: { start: number, end: number }[]
+  selections: HighlightSelection[]
   dispatch:   (action: any) => void
 }
 
@@ -143,8 +140,8 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
 }
 
 interface SnippetDisplayProps {
-  snippets:    ISnippet[]
-  selections?: SelectionState
+  snippets:    Snippet[]
+  selections?: SnippetSelections
   dispatch?:   (action: any) => void
 }
 
@@ -153,7 +150,7 @@ interface SnippetDisplayProps {
  * selections from the snippet bodies.
  */
 class SnippetDisplay extends React.Component<SnippetDisplayProps, {}> {
-  selectionsFor(snippet: ISnippet) {
+  selectionsFor(snippet: Snippet) {
     return this.props.selections[snippet.title]
   }
 
@@ -191,7 +188,7 @@ class SnippetDisplay extends React.Component<SnippetDisplayProps, {}> {
 }
 
 const mapStateToProps = (
-  { selections }: { selections: SelectionState },
+  { selections }: { selections: SnippetSelections },
   ownProps: SnippetDisplayProps
 ): SnippetDisplayProps => {
   return Object.assign({}, ownProps, { selections })
