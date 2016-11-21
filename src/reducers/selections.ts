@@ -6,9 +6,22 @@ export type SnippetSelections = {
   [key: string]: HighlightSelection[]
 }
 
-const selections = (state: SnippetSelections = {}, action: any) => {
+const selections =
+  (state: SnippetSelections = {}, action: any):
+SnippetSelections => {
   switch (action.type) {
-  case Actions.ADD_SELECTION:
+
+  case Actions.ADD_ANNOTATION: {
+    const result: SnippetSelections = {}
+
+    Object.keys(state).forEach((key) => {
+      result[key] = []
+    })
+
+    return result
+  }
+
+  case Actions.ADD_SELECTION: {
     if (action.start === action.end) return state
 
     const selections = state[action.snippet.title].concat({
@@ -31,10 +44,14 @@ const selections = (state: SnippetSelections = {}, action: any) => {
     return Object.assign({}, state, {
       [action.snippet.title]: result
     })
+  }
+
   case Actions.ADD_SNIPPET:
     return Object.assign({}, state, { [action.title]: [] })
+
   default:
     return state
+
   }
 }
 
