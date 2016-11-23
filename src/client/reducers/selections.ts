@@ -24,7 +24,7 @@ SnippetSelections => {
   case Actions.ADD_SELECTION: {
     if (action.start === action.end) return state
 
-    const selections = state[action.snippet.title].concat({
+    const selections = state[action.snippetId].concat({
       start: action.start,
       end:   action.end
     }).sort((a, b) => a.start - b.start)
@@ -42,7 +42,7 @@ SnippetSelections => {
     }
 
     return Object.assign({}, state, {
-      [action.snippet.title]: result
+      [action.snippetId]: result
     })
   }
 

@@ -85,7 +85,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     if (! selection.isCollapsed) {
       const [start, end] = this.findOffsets(selection);
       this.props.dispatch(addSelection({
-        snippet: this.props.snippet,
+        snippetId: this.props.snippet.title,
         start, end
       }))
     }
@@ -97,6 +97,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
            className={ 'tab-pane' + (this.props.active ? ' active' : '') }
            onMouseUp={ this.handleMouseUp.bind(this) }>
         <SnippetDisplay key={ this.props.snippet.title }
+                        snippetId={ this.props.snippet.title }
                         body={ this.props.snippet.body }
                         selections={ this.props.selections } />
       </div>
