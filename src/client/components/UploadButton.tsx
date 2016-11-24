@@ -9,10 +9,12 @@ interface Props {
 class UploadButton extends React.Component<Props, {}> {
   render() {
     return (
-      <button onClick={ () => this.props.dispatch(doUpload()) }
-              className="btn btn-success">
-        Upload
-      </button>
+      <div>
+        <button onClick={ () => this.props.dispatch(doUpload()) }
+                className="btn btn-success">
+          Upload
+        </button>
+      </div>
     )
   }
 }

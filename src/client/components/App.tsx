@@ -10,14 +10,26 @@ interface AppProps {
   snippets: Snippet[]
 }
 
+class UploadControls extends React.Component<{}, {}> {
+  render() {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <SnippetForm    />
+        <AnnotationForm />
+        <UploadButton   />
+      </div>
+    )
+  }
+}
+
 class App extends React.Component<AppProps, {}> {
   render() {
     return (
       <div>
-        <h1>Upload</h1>
-        <SnippetForm    />
-        <AnnotationForm />
-        <UploadButton   />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h1>Upload</h1>
+          <UploadControls />
+        </div>
         <SnippetSelectionPicker snippets={ this.props.snippets } />
       </div>
     )
