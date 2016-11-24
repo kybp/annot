@@ -96,10 +96,10 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
       <div id={ `${this.props.snippet.title}-tab-pane` }
            className={ 'tab-pane' + (this.props.active ? ' active' : '') }
            onMouseUp={ this.handleMouseUp.bind(this) }>
-        <SnippetDisplay key={ this.props.snippet.title }
-                        snippetId={ this.props.snippet.title }
-                        body={ this.props.snippet.body }
-                        selections={ this.props.selections } />
+        <SnippetDisplay
+            snippetId={ this.props.snippet.title }
+            body={ this.props.snippet.body }
+            selections={ this.props.selections } />
       </div>
     )
   }
@@ -131,9 +131,8 @@ class SnippetSelectionPicker extends React.Component<SnippetDisplayProps, {}> {
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs pull-xs-left">
             <SnippetNavItem title={ firstSnippet.title } active={ true } />
-            { otherSnippets.map(({ title }) => (
-                <SnippetNavItem key={ title + '-nav-item' }
-                                title={ title } active={ false } />
+            { otherSnippets.map(({ title }, i) => (
+                <SnippetNavItem key={ i } title={ title } active={ false } />
               ))}
           </ul>
         </div>
@@ -141,11 +140,12 @@ class SnippetSelectionPicker extends React.Component<SnippetDisplayProps, {}> {
           <SnippetTabPane snippet={ firstSnippet } active={ true }
                           selections={ this.selectionsFor(firstSnippet) }
                           dispatch={ this.props.dispatch }/>
-          { otherSnippets.map((snippet) => (
-              <SnippetTabPane key={ `${snippet.title}-tab-pane` }
-                              snippet={ snippet } active={ false }
-                              selections={ this.selectionsFor(snippet) }
-                              dispatch={ this.props.dispatch }/>
+          { otherSnippets.map((snippet, i) => (
+              <SnippetTabPane
+                  key={ i }
+                  snippet={ snippet } active={ false }
+                  selections={ this.selectionsFor(snippet) }
+                  dispatch={ this.props.dispatch }/>
             ))}
         </div>
       </div>

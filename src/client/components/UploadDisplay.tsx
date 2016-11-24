@@ -42,11 +42,10 @@ class UploadDisplay extends React.Component<Props, {}> {
 
   render() {
     return (
-      <div>{ this.props.snippets.map((snippet) => (
-        <div key={ `${snippet.title}-div` }>
+      <div>{ this.props.snippets.map((snippet, i) => (
+        <div key={ i }>
           <h1>{ snippet.title }</h1>
           <SnippetDisplay
-              key={ `${snippet.title}-display` }
               snippetId={ snippet.title }
               body={ snippet.body }
               selections={ this.props.selections[snippet.title] } />

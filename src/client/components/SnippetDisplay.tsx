@@ -20,15 +20,14 @@ class SnippetDisplay extends React.Component<Props, {}> {
     this.props.selections.forEach((selection) => {
       if (selection.start !== last) {
         chunks.push(
-          <span key={ `${this.props.snippetId}-${last}-${selection.start}` }>
+          <span key={ last }>
             { body.slice(last, selection.start) }
           </span>
         )
       }
 
       chunks.push(
-        <mark key={
-          `${this.props.snippetId}-${selection.start}-${selection.end}` }>
+        <mark key={ selection.start }>
           { body.slice(selection.start, selection.end) }
         </mark>
       )
@@ -38,7 +37,7 @@ class SnippetDisplay extends React.Component<Props, {}> {
 
     if (last !== body.length) {
       chunks.push(
-        <span key={ `${this.props.snippetId}-last` }>
+        <span key={ last }>
           { body.slice(last, body.length) }
         </span>
       )
