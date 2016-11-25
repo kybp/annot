@@ -1,3 +1,4 @@
+import Actions from '../actions'
 import { SnippetSelections } from './selections'
 
 export type Annotation = {
@@ -7,6 +8,11 @@ export type Annotation = {
 
 const annotations = (state: { [key: string]: Annotation} = {}, action: any) => {
   switch (action.type) {
+
+  case Actions.ADD_ANNOTATION:
+    return Object.assign({}, state, {
+      [action.title]: action.annotation
+    })
 
   default:
     return state
