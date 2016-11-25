@@ -5,7 +5,7 @@ export type Annotation = {
   selections: SnippetSelections
 }
 
-const annotations = (state: Annotation[] = [], action: any) => {
+const annotations = (state: { [key: string]: Annotation} = {}, action: any) => {
   switch (action.type) {
 
   default:

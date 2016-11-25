@@ -1,33 +1,47 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { findDOMNode } from 'react-dom'
-import { connect } from 'react-redux'
-import { addSnippet } from '../actions'
-import { Snippet } from '../reducers/snippets'
 
 declare var $: any
 
-interface SnippetFormProps {
-  dispatch?: (action: any) => void
+interface Props {
+  title:    string,
+  onSubmit: (title: string, body: string) => void
 }
 
-class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
+interface State {
+  title: string,
+  body:  string
+}
+
+/**
+ * A button that, when clicked, will display a modal form prompting
+ * the user for a title and a body. The `title` prop will be displayed
+ * both on the button and at the top of the form.
+ */
+class ModalForm extends React.Component<Props, State> {
+  private modalId:      string
+  private titleInputId: string
+
   constructor() {
     super()
-    this.state = { title: '', body: '' }
+    this.state        = { title: '', body: '' }
+    this.modalId      = _.uniqueId("modal-form-modal-")
+    this.titleInputId = _.uniqueId("modal-form-title-input-")
   }
 
   componentDidMount() {
-    $(findDOMNode(this)).on('shown.bs.modal',  this.initialFocus)
+    $(findDOMNode(this)).on('shown.bs.modal',  this.initialFocus.bind(this))
     $(findDOMNode(this)).on('hidden.bs.modal', this.clearFields.bind(this))
   }
 
   componentWillUnmount() {
-    $(findDOMNode(this)).off('shown.bs.modal',  this.initialFocus)
+    $(findDOMNode(this)).off('shown.bs.modal',  this.initialFocus.bind(this))
     $(findDOMNode(this)).off('hidden.bs.modal', this.clearFields.bind(this))
   }
 
   initialFocus() {
-    document.getElementById('snippet-title-input').focus()
+    document.getElementById(this.titleInputId).focus()
   }
 
   clearFields() {
@@ -36,50 +50,47 @@ class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    this.props.dispatch(addSnippet({
-      title: this.state.title,
-      body:  this.state.body
-    }))
+    this.props.onSubmit(this.state.title, this.state.body)
     this.clearFields()
   }
 
   handleChangeFor(slot: string) {
     return (event: any) => {
-      this.setState({ [slot]: event.target.value } as Snippet)
+      this.setState({ [slot]: event.target.value } as State)
     }
   }
 
   render() {
     return (
       <div>
-        <button data-toggle="modal" data-target="#snippet-modal"
+        <button data-toggle="modal" data-target={ `#${ this.modalId }` }
                 className="btn btn-primary">
-          Add snippet
+          { this.props.title }
         </button>
 
-        <div id="snippet-modal" className="modal fade" tabIndex={ -1 }>
+        <div id={ this.modalId } className="modal fade" tabIndex={ -1 }>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
                 <button className="close" data-dismiss="modal">
                   &times;
                 </button>
-                <h4 className="modal-title">New snippet</h4>
+                <h4 className="modal-title">{ this.props.title }</h4>
               </div>
               <div className="modal-body">
                 <form>
                   <div className="form-group">
                     <input type="text" className="form-control"
-                           id="snippet-title-input"
-                           placeholder="Snippet title"
+                           id={ this.titleInputId }
+                           placeholder="Title"
                            value={ this.state.title }
                            onChange={ this.handleChangeFor('title') } />
                   </div>
                   <div className="form-group">
                     <textarea className="form-control"
-                              placeholder="Snippet body"
+                              placeholder="Body"
                               value={ this.state.body }
-                              onChange={ this.handleChangeFor('body') }/>
+                              onChange={ this.handleChangeFor('body') } />
                   </div>
                 </form>
               </div>
@@ -103,4 +114,4 @@ class SnippetForm extends React.Component<SnippetFormProps, Snippet> {
   }
 }
 
-export default connect()(SnippetForm)
+export default ModalForm

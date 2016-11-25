@@ -11,10 +11,10 @@ enum Actions {
 
 export default Actions
 
-export const addAnnotation = ({ body, selections }: Annotation) => {
+export const addAnnotation = (title: string, annotation: Annotation) => {
   return {
     type: Actions.ADD_ANNOTATION,
-    body, selections
+    title, annotation
   }
 }
 

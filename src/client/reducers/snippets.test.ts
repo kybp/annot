@@ -14,11 +14,9 @@ describe('snippets reducer', () => {
   })
 
   describe(Actions[Actions.ADD_SNIPPET], () => {
-    const beforeAdd = initialState
-    const afterAdd  = reducer(beforeAdd, addSnippet(snippet))
-
     it('adds the snippet to its state', () => {
-      const difference = afterAdd.length - beforeAdd.length
+      const afterAdd   = reducer(initialState, addSnippet(snippet))
+      const difference = afterAdd.length - initialState.length
       assert.strictEqual(difference, 1)
     })
   })
