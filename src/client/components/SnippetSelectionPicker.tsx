@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { addSelection } from '../actions'
 import { Snippet } from '../reducers/snippets'
 import { HighlightSelection, SnippetSelections } from '../reducers/selections'
-import SnippetDisplay from './SnippetDisplay'
+import SnippetBodyDisplay from './SnippetBodyDisplay'
 
 /*
  * Using snippet titles directly in id's like this trusts the user to be very
@@ -96,7 +96,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
       <div id={ `${this.props.snippet.title}-tab-pane` }
            className={ 'tab-pane' + (this.props.active ? ' active' : '') }
            onMouseUp={ this.handleMouseUp.bind(this) }>
-        <SnippetDisplay
+        <SnippetBodyDisplay
             snippetId={ this.props.snippet.title }
             body={ this.props.snippet.body }
             selections={ this.props.selections } />
@@ -105,7 +105,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
   }
 }
 
-interface SnippetDisplayProps {
+interface SnippetBodyDisplayProps {
   snippets:    Snippet[]
   selections?: SnippetSelections
   dispatch?:   (action: any) => void
@@ -115,7 +115,7 @@ interface SnippetDisplayProps {
  * A container for displaying snippets and allowing the user to make
  * selections from the snippet bodies.
  */
-class SnippetSelectionPicker extends React.Component<SnippetDisplayProps, {}> {
+class SnippetSelectionPicker extends React.Component<SnippetBodyDisplayProps, {}> {
   selectionsFor(snippet: Snippet) {
     return this.props.selections[snippet.title]
   }
@@ -155,8 +155,8 @@ class SnippetSelectionPicker extends React.Component<SnippetDisplayProps, {}> {
 
 const mapStateToProps = (
   { selections }: { selections: SnippetSelections },
-  ownProps: SnippetDisplayProps
-): SnippetDisplayProps => {
+  ownProps: SnippetBodyDisplayProps
+): SnippetBodyDisplayProps => {
   return Object.assign({}, ownProps, { selections })
 }
 

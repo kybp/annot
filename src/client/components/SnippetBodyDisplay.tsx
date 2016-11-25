@@ -11,7 +11,7 @@ interface Props {
  * A component for displaying the body of a snippet with its selections
  * highlighted in a different colour.
  */
-class SnippetDisplay extends React.Component<Props, {}> {
+class SnippetBodyDisplay extends React.Component<Props, {}> {
   render() {
     const body = this.props.body
     const chunks: any[] = []
@@ -47,4 +47,4 @@ class SnippetDisplay extends React.Component<Props, {}> {
   }
 }
 
-export default SnippetDisplay
+export default SnippetBodyDisplay
