@@ -108,7 +108,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
   }
 }
 
-interface SnippetBodyDisplayProps {
+interface SnippetsDisplayProps {
   snippets:    Snippet[]
   selectable:  boolean
   selections?: SnippetSelections
@@ -119,9 +119,9 @@ interface SnippetBodyDisplayProps {
  * A container for displaying snippets and allowing the user to make
  * selections from the snippet bodies.
  */
-class SnippetsDisplay extends React.Component<SnippetBodyDisplayProps, {}> {
+class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
   selectionsFor(snippet: Snippet) {
-    return this.props.selections[snippet.title]
+    return this.props.selections[snippet.title] || []
   }
 
   render() {
@@ -160,8 +160,8 @@ class SnippetsDisplay extends React.Component<SnippetBodyDisplayProps, {}> {
 
 const mapStateToProps = (
   { selections }: { selections: SnippetSelections },
-  ownProps: SnippetBodyDisplayProps
-): SnippetBodyDisplayProps => {
+  ownProps: SnippetsDisplayProps
+): SnippetsDisplayProps => {
   return Object.assign({}, ownProps, { selections })
 }
 

@@ -1,19 +1,21 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { addSnippet, addSelection } from '../actions'
+import { addSnippet, addSelection, clearSnippets } from '../actions'
 import { Snippet } from '../reducers/snippets'
 import { SnippetSelections } from '../reducers/selections'
 import SnippetsDisplay from './SnippetsDisplay'
 
 interface Props {
-  params:     { [key: string]: string },
-  dispatch?:  (action: any) => void,
-  snippets:   Snippet[],
+  params:     { [key: string]: string }
+  snippets:   Snippet[]
   selections: SnippetSelections
+  dispatch?:  (action: any) => void
 }
 
 class UploadDisplay extends React.Component<Props, {}> {
   componentWillMount() {
+    this.props.dispatch(clearSnippets())
+
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
