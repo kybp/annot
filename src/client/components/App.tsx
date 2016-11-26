@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Snippet } from '../reducers/snippets'
+import { Snippet } from '../models'
 import SnippetsDisplay from './SnippetsDisplay'
 import UploadControls from './UploadControls'
 

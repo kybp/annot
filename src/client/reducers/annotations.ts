@@ -1,10 +1,5 @@
 import Actions from '../actions'
-import { SnippetSelections } from './selections'
-
-export type Annotation = {
-  body:       string,
-  selections: SnippetSelections
-}
+import { Annotation, SnippetSelections } from '../models'
 
 const annotations = (state: { [key: string]: Annotation} = {}, action: any) => {
   switch (action.type) {

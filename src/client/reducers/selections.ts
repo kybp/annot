@@ -1,10 +1,5 @@
 import Actions from '../actions'
-
-export type HighlightSelection = { start: number, end: number }
-
-export type SnippetSelections = {
-  [key: string]: HighlightSelection[]
-}
+import { HighlightSelection, SnippetSelections } from '../models'
 
 const selections =
   (state: SnippetSelections = {}, action: any):

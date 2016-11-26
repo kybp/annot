@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { HighlightSelection } from '../reducers/selections'
+import { HighlightSelection } from '../models'
 
 interface Props {
   snippetId:  string,

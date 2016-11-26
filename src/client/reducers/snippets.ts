@@ -1,9 +1,5 @@
 import Actions from '../actions'
-
-export type Snippet = {
-  title: string,
-  body:  string
-}
+import { Snippet } from '../models'
 
 const snippets = (state: Snippet[] = [], action: any) => {
   switch (action.type) {

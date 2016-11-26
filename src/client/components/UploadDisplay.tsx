@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { addSnippet, addSelection, clearSnippets } from '../actions'
-import { Snippet } from '../reducers/snippets'
-import { SnippetSelections } from '../reducers/selections'
+import { Snippet, SnippetSelections } from '../models'
 import SnippetsDisplay from './SnippetsDisplay'
 
 interface Props {

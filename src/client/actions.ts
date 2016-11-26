@@ -1,6 +1,4 @@
-import { Annotation } from './reducers/annotations'
-import { Snippet } from './reducers/snippets'
-import { SnippetSelections } from './reducers/selections'
+import { Annotation, Snippet, SnippetSelections } from './models'
 
 enum Actions {
   ADD_ANNOTATION,
