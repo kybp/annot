@@ -14,7 +14,7 @@ enum Actions {
 export default Actions
 
 export const addAnnotation = (
-  { id = null, title, body, selections }:
+  { id, title, body, selections }:
   { id?: string, title: string, body: string, selections: SnippetSelections }
 ) => {
   return {
@@ -33,10 +33,14 @@ export const addSelection = (
   }
 }
 
-export const addSnippet = ({ title, body }: Snippet) => {
+export const addSnippet = (
+  { id, title, body }:
+  { id?: string, title: string, body: string }
+) => {
   return {
     type: Actions.ADD_SNIPPET,
-    title, body
+    title, body,
+    id: id || _.uniqueId('snippet-')
   }
 }
 

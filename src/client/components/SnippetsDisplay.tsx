@@ -6,21 +6,17 @@ import { Snippet } from '../models'
 import { HighlightSelection, SnippetSelections } from '../models'
 import SnippetBodyDisplay from './SnippetBodyDisplay'
 
-/*
- * Using snippet titles directly in id's like this trusts the user to be very
- * well-behaved. Just a temporary solution.
- */
-
 /**
  * A nav-item for linking a snippet's title tab to its body pane.
  */
 const SnippetNavItem = (
-  { title, active }: { title: string, active: boolean }
+  { snippetId, title, active }:
+  { snippetId: string, title: string, active: boolean }
 ) => {
   return (
     <li className="nav-item">
       <a className={ 'nav-link' + (active ? ' active' : '') }
-         data-toggle="tab" href={ `#${title}-tab-pane` }>
+         data-toggle="tab" href={ `#${snippetId}-tab-pane` }>
         { title }
       </a>
     </li>
@@ -96,7 +92,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
 
   render() {
     return (
-      <div id={ `${this.props.snippet.title}-tab-pane` }
+      <div id={ `${this.props.snippet.id}-tab-pane` }
            className={ 'tab-pane' + (this.props.active ? ' active' : '') }
            onMouseUp={ this.handleMouseUp.bind(this) }>
         <SnippetBodyDisplay
@@ -134,9 +130,13 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
       <div className="card text-xs-center">
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs pull-xs-left">
-            <SnippetNavItem title={ firstSnippet.title } active={ true } />
-            { otherSnippets.map(({ title }, i) => (
-                <SnippetNavItem key={ i } title={ title } active={ false } />
+            <SnippetNavItem
+                snippetId={ firstSnippet.id } title={ firstSnippet.title }
+                active={ true } />
+            { otherSnippets.map(({ id, title }, i) => (
+                <SnippetNavItem
+                    snippetId={ id } title={ title }
+                    key={ i } active={ false } />
               ))}
           </ul>
         </div>

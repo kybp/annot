@@ -8,9 +8,11 @@ app.use(bodyParser.json())
 app.get('/api/uploads/:id', (req, res) => {
   res.json({
     snippets: [{
+      id:    'x1',
       title: 'one',
       body:  'first body'
     }, {
+      id:    'x2',
       title: 'two',
       body:  'second body'
     }],

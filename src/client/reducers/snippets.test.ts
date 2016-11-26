@@ -5,7 +5,7 @@ import reducer from './snippets'
 
 describe('snippets reducer', () => {
   const initialState = reducer(undefined, { type: 'INIT' })
-  const snippet      = { title: 'a title', body: 'a body' }
+  const snippet      = { id: 'x1', title: 'a title', body: 'a body' }
 
   describe('initial state', () => {
     it('is an empty array', () => {
