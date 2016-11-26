@@ -113,7 +113,8 @@ describe('selections reducer', () => {
   describe(Actions[Actions.ADD_ANNOTATION], () => {
     it('clears the selection list for each snippet', () => {
       const initial = reducer(initialState, addSnippet(snippet))
-      const action  = addAnnotation('title', { body: 'body', selections: {} })
+      const action  = addAnnotation({
+        title: 'title', body: 'body', selections: {} })
       const updated = reducer(initial, action)
       assert.deepEqual(updated, { [snippet.title]: [] })
     })

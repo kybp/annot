@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import { Annotation, Snippet, SnippetSelections } from './models'
 
 enum Actions {
@@ -12,10 +13,14 @@ enum Actions {
 
 export default Actions
 
-export const addAnnotation = (title: string, annotation: Annotation) => {
+export const addAnnotation = (
+  { id = null, title, body, selections }:
+  { id?: string, title: string, body: string, selections: SnippetSelections }
+) => {
   return {
     type: Actions.ADD_ANNOTATION,
-    title, annotation
+    title, body, selections,
+    id: id || _.uniqueId('annotation-')
   }
 }
 

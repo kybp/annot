@@ -1,17 +1,20 @@
 import Actions from '../actions'
 import { Annotation, SnippetSelections } from '../models'
 
-const annotations = (state: { [key: string]: Annotation} = {}, action: any) => {
+const annotations = (state: Annotation[] = [], action: any): Annotation[] => {
   switch (action.type) {
 
   case Actions.ADD_ANNOTATION:
-    return Object.assign({}, state, {
-      [action.title]: action.annotation
+    return state.concat({
+      id:         action.id,
+      title:      action.title,
+      body:       action.body,
+      selections: action.selections
     })
 
   case Actions.CLEAR_ANNOTATIONS:
   case Actions.CLEAR_SNIPPETS:
-    return {}
+    return []
 
   default:
     return state

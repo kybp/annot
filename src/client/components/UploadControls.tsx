@@ -19,7 +19,7 @@ class UploadControls extends React.Component<Props, {}> {
           }} />
         <ModalForm title="Add annotation" onSubmit={ (title, body) => {
             this.props.dispatch(addAnnotation(
-              title, { body, selections: this.props.selections }))
+              { title, body, selections: this.props.selections }))
           }} />
         <UploadButton />
       </div>

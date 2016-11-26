@@ -7,35 +7,37 @@ import reducer from './annotations'
 describe('annotations reducer', () => {
   const initialState = reducer(undefined, { type: 'INIT' })
   const annotation = {
+    id:         '1',
+    title:      'a title',
     body:       'a body',
-    selections: { id: [{ start: 0, end: 2 }] }}
+    selections: { snippetId: [{ start: 0, end: 2 }] }}
 
   describe('initial state', () => {
-    it('is an empty object', () => {
-      assert.deepEqual(initialState, {})
+    it('is an empty array', () => {
+      assert.deepEqual(initialState, [])
     })
   })
 
   describe(Actions[Actions.ADD_ANNOTATION], () => {
-    it('adds the annotation to its state object', () => {
-      const afterAdd = reducer(initialState, addAnnotation('title', annotation))
-      assert.deepEqual(afterAdd, { title: annotation })
+    it('adds the annotation to its state', () => {
+      const afterAdd = reducer(initialState, addAnnotation(annotation))
+      assert.deepEqual(afterAdd, [annotation])
     })
   })
 
   describe(Actions[Actions.CLEAR_ANNOTATIONS], () => {
     it('clears its state object', () => {
-      const initial = reducer(initialState, addAnnotation('title', annotation))
+      const initial = reducer(initialState, addAnnotation(annotation))
       const updated = reducer(initial, clearAnnotations())
-      assert.deepEqual(updated, {})
+      assert.deepEqual(updated, [])
     })
   })
 
   describe(Actions[Actions.CLEAR_SNIPPETS], () => {
     it('clears its state object', () => {
-      const initial = reducer(initialState, addAnnotation('title', annotation))
+      const initial = reducer(initialState, addAnnotation(annotation))
       const updated = reducer(initial, clearSnippets())
-      assert.deepEqual(updated, {})
+      assert.deepEqual(updated, [])
     })
   })
 })

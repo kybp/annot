@@ -1,5 +1,7 @@
 export type Annotation = {
-  body:       string,
+  id:         string
+  title:      string
+  body:       string
   selections: SnippetSelections
 }
 
