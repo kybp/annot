@@ -7,10 +7,16 @@ export type Snippet = {
 
 const snippets = (state: Snippet[] = [], action: any) => {
   switch (action.type) {
+
   case Actions.ADD_SNIPPET:
     return state.concat({ title: action.title, body: action.body })
+
+  case Actions.CLEAR_SNIPPETS:
+    return []
+
   default:
     return state
+
   }
 }
 

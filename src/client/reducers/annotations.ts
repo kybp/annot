@@ -14,6 +14,10 @@ const annotations = (state: { [key: string]: Annotation} = {}, action: any) => {
       [action.title]: action.annotation
     })
 
+  case Actions.CLEAR_ANNOTATIONS:
+  case Actions.CLEAR_SNIPPETS:
+    return {}
+
   default:
     return state
 

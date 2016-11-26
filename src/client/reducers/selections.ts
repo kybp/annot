@@ -11,6 +11,7 @@ const selections =
 SnippetSelections => {
   switch (action.type) {
 
+  case Actions.CLEAR_SELECTIONS:
   case Actions.ADD_ANNOTATION: {
     const result: SnippetSelections = {}
 
@@ -48,6 +49,9 @@ SnippetSelections => {
 
   case Actions.ADD_SNIPPET:
     return Object.assign({}, state, { [action.title]: [] })
+
+  case Actions.CLEAR_SNIPPETS:
+    return {}
 
   default:
     return state

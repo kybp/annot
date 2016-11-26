@@ -2,6 +2,7 @@ import * as mocha from 'mocha'
 import { assert } from 'chai'
 import Actions from '../actions'
 import { addAnnotation, addSelection, addSnippet } from '../actions'
+import { clearSelections, clearSnippets } from '../actions'
 import reducer from './selections'
 
 describe('selections reducer', () => {
@@ -115,6 +116,25 @@ describe('selections reducer', () => {
       const action  = addAnnotation('title', { body: 'body', selections: {} })
       const updated = reducer(initial, action)
       assert.deepEqual(updated, { [snippet.title]: [] })
+    })
+  })
+
+  describe(Actions[Actions.CLEAR_SELECTIONS], () => {
+    it('clears the selection list for each snippet', () => {
+      const initial    = reducer(initialState, addSnippet(snippet))
+      const bodyLength = snippet.body.length
+      const action     = addSelection({ snippetId, start: 0, end: bodyLength })
+      const selected   = reducer(initial, action)
+      const updated    = reducer(selected, clearSelections())
+      assert.deepEqual(updated, { [snippet.title]: [] })
+    })
+  })
+
+  describe(Actions[Actions.CLEAR_SNIPPETS], () => {
+    it('empties its state object', () => {
+      const initial = reducer(initialState, addSnippet(snippet))
+      const updated = reducer(initial, clearSnippets())
+      assert.deepEqual(updated, {})
     })
   })
 })
