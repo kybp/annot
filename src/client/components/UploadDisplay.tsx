@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { addSnippet, addSelection } from '../actions'
 import { Snippet } from '../reducers/snippets'
 import { SnippetSelections } from '../reducers/selections'
-import SnippetBodyDisplay from './SnippetBodyDisplay'
+import SnippetsDisplay from './SnippetsDisplay'
 
 interface Props {
   params:     { [key: string]: string },
@@ -41,17 +41,8 @@ class UploadDisplay extends React.Component<Props, {}> {
   }
 
   render() {
-    return (
-      <div>{ this.props.snippets.map((snippet, i) => (
-        <div key={ i }>
-          <h1>{ snippet.title }</h1>
-          <SnippetBodyDisplay
-              snippetId={ snippet.title }
-              body={ snippet.body }
-              selections={ this.props.selections[snippet.title] } />
-        </div>))}
-      </div>
-    )
+    return <SnippetsDisplay snippets={ this.props.snippets }
+                            selectable={ false } />
   }
 }
 

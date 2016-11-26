@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Snippet } from '../reducers/snippets'
-import SnippetSelectionPicker from './SnippetSelectionPicker'
+import SnippetsDisplay from './SnippetsDisplay'
 import UploadControls from './UploadControls'
 
 interface Props {
@@ -16,7 +16,7 @@ class App extends React.Component<Props, {}> {
           <h1>Upload</h1>
           <UploadControls />
         </div>
-        <SnippetSelectionPicker snippets={ this.props.snippets } />
+        <SnippetsDisplay selectable={ true } snippets={ this.props.snippets } />
       </div>
     )
   }

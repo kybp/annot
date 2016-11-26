@@ -31,6 +31,7 @@ interface SnippetTabPaneProps {
   snippet:    Snippet
   active:     boolean
   selections: HighlightSelection[]
+  selectable: boolean
   dispatch:   (action: any) => void
 }
 
@@ -80,6 +81,8 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
    * so, add that selection to the Redux store.
    */
   handleMouseUp() {
+    if (! this.props.selectable) return
+
     const selection = window.getSelection()
 
     if (! selection.isCollapsed) {
@@ -107,6 +110,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
 
 interface SnippetBodyDisplayProps {
   snippets:    Snippet[]
+  selectable:  boolean
   selections?: SnippetSelections
   dispatch?:   (action: any) => void
 }
@@ -115,7 +119,7 @@ interface SnippetBodyDisplayProps {
  * A container for displaying snippets and allowing the user to make
  * selections from the snippet bodies.
  */
-class SnippetSelectionPicker extends React.Component<SnippetBodyDisplayProps, {}> {
+class SnippetsDisplay extends React.Component<SnippetBodyDisplayProps, {}> {
   selectionsFor(snippet: Snippet) {
     return this.props.selections[snippet.title]
   }
@@ -138,14 +142,15 @@ class SnippetSelectionPicker extends React.Component<SnippetBodyDisplayProps, {}
         </div>
         <div className="card-block tab-content">
           <SnippetTabPane snippet={ firstSnippet } active={ true }
+                          selectable={ this.props.selectable }
                           selections={ this.selectionsFor(firstSnippet) }
                           dispatch={ this.props.dispatch }/>
           { otherSnippets.map((snippet, i) => (
               <SnippetTabPane
-                  key={ i }
-                  snippet={ snippet } active={ false }
+                  key={ i } snippet={ snippet } active={ false }
+                  selectable={ this.props.selectable }
                   selections={ this.selectionsFor(snippet) }
-                  dispatch={ this.props.dispatch }/>
+                  dispatch={ this.props.dispatch } />
             ))}
         </div>
       </div>
@@ -160,4 +165,4 @@ const mapStateToProps = (
   return Object.assign({}, ownProps, { selections })
 }
 
-export default connect(mapStateToProps)(SnippetSelectionPicker)
+export default connect(mapStateToProps)(SnippetsDisplay)
