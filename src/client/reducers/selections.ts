@@ -6,14 +6,9 @@ const selections =
 SnippetSelections => {
   switch (action.type) {
 
-  case Actions.CLEAR_SELECTIONS:
-  case Actions.ADD_ANNOTATION: {
+  case Actions.CLEAR_SELECTIONS: {
     const result: SnippetSelections = {}
-
-    Object.keys(state).forEach((key) => {
-      result[key] = []
-    })
-
+    Object.keys(state).forEach(key => result[key] = [])
     return result
   }
 

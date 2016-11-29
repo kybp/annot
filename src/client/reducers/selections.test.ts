@@ -110,16 +110,6 @@ describe('selections reducer', () => {
     })
   })
 
-  describe(Actions[Actions.ADD_ANNOTATION], () => {
-    it('clears the selection list for each snippet', () => {
-      const initial = reducer(initialState, addSnippet(snippet))
-      const action  = addAnnotation({
-        id: 'x1', title: 'title', body: 'body', selections: {} })
-      const updated = reducer(initial, action)
-      assert.deepEqual(updated, { [snippet.title]: [] })
-    })
-  })
-
   describe(Actions[Actions.CLEAR_SELECTIONS], () => {
     it('clears the selection list for each snippet', () => {
       const initial    = reducer(initialState, addSnippet(snippet))
