@@ -7,10 +7,12 @@ import reducer from './annotations'
 describe('annotations reducer', () => {
   const initialState = reducer(undefined, { type: 'INIT' })
   const annotation = {
-    id:         '1',
-    title:      'a title',
-    body:       'a body',
-    selections: { snippetId: [{ annotationId: 'a1', start: 0, end: 2 }] }
+    id:    '1',
+    title: 'a title',
+    body:  'a body',
+    selections: {
+      snippetId: [{ annotationId: 'a1', start: 0, end: 2 }]
+    }
   }
 
   describe('initial state', () => {
@@ -27,18 +29,18 @@ describe('annotations reducer', () => {
   })
 
   describe(Actions[Actions.CLEAR_ANNOTATIONS], () => {
-    it('clears its state object', () => {
+    it('resets its state object', () => {
       const initial = reducer(initialState, addAnnotation(annotation))
       const updated = reducer(initial, clearAnnotations())
-      assert.deepEqual(updated, [])
+      assert.deepEqual(updated, initialState)
     })
   })
 
   describe(Actions[Actions.CLEAR_SNIPPETS], () => {
-    it('clears its state object', () => {
+    it('resets its state object', () => {
       const initial = reducer(initialState, addAnnotation(annotation))
       const updated = reducer(initial, clearSnippets())
-      assert.deepEqual(updated, [])
+      assert.deepEqual(updated, initialState)
     })
   })
 })

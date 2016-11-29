@@ -22,10 +22,10 @@ describe('snippets reducer', () => {
   })
 
   describe(Actions[Actions.CLEAR_SNIPPETS], () => {
-    it('empties its state array', () => {
+    it('resets its state object', () => {
       const initial = reducer(initialState, addSnippet(snippet))
       const updated = reducer(initial, clearSnippets())
-      assert.deepEqual(updated, [])
+      assert.deepEqual(updated, initialState)
     })
   })
 })
