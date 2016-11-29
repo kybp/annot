@@ -84,7 +84,7 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
     if (! selection.isCollapsed) {
       const [start, end] = this.findOffsets(selection);
       this.props.dispatch(addSelection({
-        snippetId:    this.props.snippet.title,
+        snippetId:    this.props.snippet.id,
         annotationId: null,
         start, end
       }))
@@ -110,6 +110,7 @@ interface SnippetsDisplayProps {
   selectable:  boolean
   selections?: SnippetSelections
   dispatch?:   (action: any) => void
+  currentAnnotationId: string
 }
 
 /**
@@ -118,7 +119,10 @@ interface SnippetsDisplayProps {
  */
 class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
   selectionsFor(snippet: Snippet) {
-    return this.props.selections[snippet.title] || []
+    return (this.props.selections[snippet.id] || [])
+      .filter(selection => {
+        return selection.annotationId === this.props.currentAnnotationId
+      })
   }
 
   render() {
@@ -160,10 +164,14 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
 }
 
 const mapStateToProps = (
-  { selections }: { selections: SnippetSelections },
+  { selections, currentAnnotation }:
+  { selections: SnippetSelections, currentAnnotation: string },
   ownProps: SnippetsDisplayProps
 ): SnippetsDisplayProps => {
-  return Object.assign({}, ownProps, { selections })
+  return Object.assign({}, ownProps, {
+    currentAnnotationId: currentAnnotation,
+    selections
+  })
 }
 
 export default connect(mapStateToProps)(SnippetsDisplay)

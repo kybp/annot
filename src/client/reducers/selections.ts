@@ -21,11 +21,13 @@ const selections = (
       end:          action.end
     }).sort((a, b) => a.start - b.start)
 
-    let result: { start: number, end: number }[] = []
+    let result: HighlightSelection[] = []
     for (let selection of selections) {
       let i = result.length - 1
 
-      if (i >= 0 && result[i].end >= selection.start) {
+      if (i >= 0 &&
+          result[i].annotationId === selection.annotationId &&
+          result[i].end >= selection.start) {
         // Combine this selection with the previous one
         result[i].end = Math.max(result[i].end, selection.end)
       } else {

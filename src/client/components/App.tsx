@@ -16,7 +16,10 @@ class App extends React.Component<Props, {}> {
           <h1>Upload</h1>
           <UploadControls />
         </div>
-        <SnippetsDisplay selectable={ true } snippets={ this.props.snippets } />
+        <SnippetsDisplay
+            currentAnnotationId={ null }
+            selectable={ true }
+            snippets={ this.props.snippets } />
       </div>
     )
   }

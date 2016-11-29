@@ -100,6 +100,15 @@ describe('selections reducer', () => {
         secondAdded[snippetId],
         [{ annotationId, start: firstStart, end: secondEnd }])
     })
+
+    it('does not merge selections belonging to different annotations', () => {
+      const [start, middle, end] = [0, 2, 4]
+      const selection1  = { snippetId, annotationId: 'a1', start, end: middle }
+      const selection2  = { snippetId, annotationId: 'a2', start: middle, end }
+      const firstAdded  = reducer(beforeAdd,  addSelection(selection1))
+      const secondAdded = reducer(firstAdded, addSelection(selection2))
+      assert.strictEqual(secondAdded[snippetId].length, 2)
+    })
   })
 
   describe(Actions[Actions.CLEAR_SELECTIONS], () => {

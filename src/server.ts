@@ -6,8 +6,6 @@ app.use('/', express.static('dist'))
 app.use(bodyParser.json())
 
 app.get('/api/uploads/:id', (req, res) => {
-  const annotationId = 'a1'
-
   res.json({
     snippets: [{
       id:    'x1',
@@ -19,11 +17,11 @@ app.get('/api/uploads/:id', (req, res) => {
       body:  'second body'
     }],
     snippetSelections: [{
-      snippetId:  'one',
+      snippetId:  'x1',
       selections: [{
-        annotationId, start: 0, end: 1
+        annotationId: 'a1', start: 0, end: 3
       }, {
-        annotationId, start: 2, end: 3
+        annotationId: 'a2', start: 3, end: 6
       }]
     }]
   })

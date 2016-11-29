@@ -42,8 +42,10 @@ class UploadDisplay extends React.Component<Props, {}> {
   }
 
   render() {
-    return <SnippetsDisplay snippets={ this.props.snippets }
-                            selectable={ false } />
+    return <SnippetsDisplay
+               currentAnnotationId={ null }
+               snippets={ this.props.snippets }
+               selectable={ false } />
   }
 }
 
