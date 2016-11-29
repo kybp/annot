@@ -1,9 +1,9 @@
 import Actions from '../actions'
 import { HighlightSelection, SnippetSelections } from '../models'
 
-const selections =
-  (state: SnippetSelections = {}, action: any):
-SnippetSelections => {
+const selections = (
+  state: SnippetSelections = {}, action: any
+): SnippetSelections => {
   switch (action.type) {
 
   case Actions.CLEAR_SELECTIONS: {
@@ -16,8 +16,9 @@ SnippetSelections => {
     if (action.start === action.end) return state
 
     const selections = state[action.snippetId].concat({
-      start: action.start,
-      end:   action.end
+      annotationId: action.annotationId,
+      start:        action.start,
+      end:          action.end
     }).sort((a, b) => a.start - b.start)
 
     let result: { start: number, end: number }[] = []
@@ -38,7 +39,7 @@ SnippetSelections => {
   }
 
   case Actions.ADD_SNIPPET:
-    return Object.assign({}, state, { [action.title]: [] })
+    return Object.assign({}, state, { [action.id]: [] })
 
   case Actions.CLEAR_SNIPPETS:
     return {}

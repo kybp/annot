@@ -26,9 +26,9 @@ class UploadDisplay extends React.Component<Props, {}> {
           })
 
           for (let { snippetId, selections } of snippetSelections) {
-            for (let { start, end } of selections) {
+            for (let { annotationId, start, end } of selections) {
               this.props.dispatch(addSelection({
-                snippetId, start, end
+                annotationId, snippetId, start, end
               }))
             }
           }

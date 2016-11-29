@@ -10,7 +10,8 @@ describe('annotations reducer', () => {
     id:         '1',
     title:      'a title',
     body:       'a body',
-    selections: { snippetId: [{ start: 0, end: 2 }] }}
+    selections: { snippetId: [{ annotationId: 'a1', start: 0, end: 2 }] }
+  }
 
   describe('initial state', () => {
     it('is an empty array', () => {

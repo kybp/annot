@@ -25,11 +25,12 @@ export const addAnnotation = (
 }
 
 export const addSelection = (
-  { snippetId, start, end }: { snippetId: string, start: number, end: number }
+  { annotationId, snippetId, start, end }:
+  { annotationId: string, snippetId: string, start: number, end: number }
 ) => {
   return {
     type: Actions.ADD_SELECTION,
-    snippetId, start, end
+    annotationId, snippetId, start, end
   }
 }
 
