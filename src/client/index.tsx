@@ -3,16 +3,16 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, hashHistory } from 'react-router'
 import { createStore } from 'redux'
-import App from './components/App'
-import UploadDisplay from './components/UploadDisplay'
+import NewUpload from './components/NewUpload'
+import FetchedUpload from './components/FetchedUpload'
 import reducer from './reducers'
 
 render(
   <Provider store={ createStore(reducer) }>
     <div className="container">
       <Router history={ hashHistory }>
-        <Route path="/"            component={ App } />
-        <Route path="/uploads/:id" component={ UploadDisplay } />
+        <Route path="/"            component={ NewUpload     } />
+        <Route path="/uploads/:id" component={ FetchedUpload } />
       </Router>
     </div>
   </Provider>,

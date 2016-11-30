@@ -106,11 +106,11 @@ class SnippetTabPane extends React.Component<SnippetTabPaneProps, {}> {
 }
 
 interface SnippetsDisplayProps {
-  snippets:    Snippet[]
   selectable:  boolean
+  snippets?:   Snippet[]
   selections?: SnippetSelections
   dispatch?:   (action: any) => void
-  currentAnnotationId: string
+  currentAnnotationId?: string
 }
 
 /**
@@ -164,13 +164,13 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
 }
 
 const mapStateToProps = (
-  { selections, currentAnnotation }:
-  { selections: SnippetSelections, currentAnnotation: string },
+  { snippets, selections, currentAnnotation }:
+  { snippets: Snippet[], selections: SnippetSelections, currentAnnotation: string },
   ownProps: SnippetsDisplayProps
 ): SnippetsDisplayProps => {
   return Object.assign({}, ownProps, {
     currentAnnotationId: currentAnnotation,
-    selections
+    snippets, selections
   })
 }
 

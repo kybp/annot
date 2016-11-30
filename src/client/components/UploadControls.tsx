@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { addAnnotation, addSnippet } from '../actions'
+import { addAnnotation, addSnippet, doUpload } from '../actions'
 import { SnippetSelections } from '../models'
 import ModalForm from './ModalForm'
-import UploadButton from './UploadButton'
 
 interface Props {
   dispatch?:   (action: any) => void
@@ -21,7 +20,12 @@ class UploadControls extends React.Component<Props, {}> {
             this.props.dispatch(addAnnotation(
               { title, body, selections: this.props.selections }))
           }} />
-        <UploadButton />
+        <div>
+          <button onClick={ () => this.props.dispatch(doUpload()) }
+                  className="btn btn-success">
+            Upload
+          </button>
+        </div>
       </div>
     )
   }

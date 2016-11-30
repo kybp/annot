@@ -1,17 +1,15 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { addSnippet, addSelection, clearSnippets } from '../actions'
-import { Snippet, SnippetSelections } from '../models'
+import { Snippet } from '../models'
 import SnippetsDisplay from './SnippetsDisplay'
 
 interface Props {
-  params:     { [key: string]: string }
-  snippets:   Snippet[]
-  selections: SnippetSelections
-  dispatch?:  (action: any) => void
+  params:    { [key: string]: string }
+  dispatch?: (action: any) => void
 }
 
-class UploadDisplay extends React.Component<Props, {}> {
+class FetchedUpload extends React.Component<Props, {}> {
   componentWillMount() {
     this.props.dispatch(clearSnippets())
 
@@ -42,18 +40,8 @@ class UploadDisplay extends React.Component<Props, {}> {
   }
 
   render() {
-    return <SnippetsDisplay
-               currentAnnotationId={ null }
-               snippets={ this.props.snippets }
-               selectable={ false } />
+    return <SnippetsDisplay selectable={ false } />
   }
 }
 
-const mapStateToProps = (
-  { snippets, selections }: { snippets: Snippet[], selections: SnippetSelections},
-  ownProps: Props
-): Props => {
-  return Object.assign({}, ownProps, { snippets, selections })
-}
-
-export default connect(mapStateToProps)(UploadDisplay)
+export default connect()(FetchedUpload)
