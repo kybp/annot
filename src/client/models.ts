@@ -2,7 +2,6 @@ export type Annotation = {
   id:         string
   title:      string
   body:       string
-  selections: SnippetSelections
 }
 
 export type Snippet = {

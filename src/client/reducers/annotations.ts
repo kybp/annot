@@ -6,10 +6,9 @@ const annotations = (state: Annotation[] = [], action: any): Annotation[] => {
 
   case Actions.ADD_ANNOTATION:
     return state.concat({
-      id:         action.id,
-      title:      action.title,
-      body:       action.body,
-      selections: action.selections
+      id:    action.id,
+      title: action.title,
+      body:  action.body
     })
 
   case Actions.CLEAR_ANNOTATIONS:

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import SnippetsDisplay from './SnippetsDisplay'
+import UploadDisplay from './UploadDisplay'
 import UploadControls from './UploadControls'
 
 class NewUpload extends React.Component<{}, {}> {
@@ -10,7 +10,7 @@ class NewUpload extends React.Component<{}, {}> {
           <h1>Upload</h1>
           <UploadControls />
         </div>
-        <SnippetsDisplay selectable={ true } />
+        <UploadDisplay selectable={ true } />
       </div>
     )
   }

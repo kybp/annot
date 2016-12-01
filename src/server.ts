@@ -23,6 +23,15 @@ app.get('/api/uploads/:id', (req, res) => {
       }, {
         annotationId: 'a2', start: 3, end: 6
       }]
+    }],
+    annotations: [{
+      id:    'a1',
+      title: 'un',
+      body:  'the first annotation'
+    }, {
+      id:    'a2',
+      title: 'deux',
+      body:  'the second annotation'
     }]
   })
 })

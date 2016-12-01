@@ -9,10 +9,7 @@ describe('annotations reducer', () => {
   const annotation = {
     id:    '1',
     title: 'a title',
-    body:  'a body',
-    selections: {
-      snippetId: [{ annotationId: 'a1', start: 0, end: 2 }]
-    }
+    body:  'a body'
   }
 
   describe('initial state', () => {

@@ -16,12 +16,12 @@ enum Actions {
 export default Actions
 
 export const addAnnotation = (
-  { id, title, body, selections }:
-  { id?: string, title: string, body: string, selections: SnippetSelections }
+  { id, title, body }:
+  { id?: string, title: string, body: string }
 ) => {
   return {
     type: Actions.ADD_ANNOTATION,
-    title, body, selections,
+    title, body,
     id: id || _.uniqueId('annotation-')
   }
 }

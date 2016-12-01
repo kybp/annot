@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { addSnippet, addSelection, clearSnippets } from '../actions'
-import { Snippet } from '../models'
-import SnippetsDisplay from './SnippetsDisplay'
+import { addAnnotation, addSnippet, addSelection } from '../actions'
+import { clearSnippets } from '../actions'
+import { Annotation, Snippet } from '../models'
+import UploadDisplay from './UploadDisplay'
 
 interface Props {
   params:    { [key: string]: string }
@@ -17,10 +18,15 @@ class FetchedUpload extends React.Component<Props, {}> {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          const { snippets, snippetSelections } = JSON.parse(xhr.responseText)
+          const { snippets, annotations, snippetSelections } =
+            JSON.parse(xhr.responseText)
 
           snippets.forEach((snippet: Snippet) => {
             this.props.dispatch(addSnippet(snippet))
+          })
+
+          annotations.forEach((annotation: Annotation) => {
+            this.props.dispatch(addAnnotation(annotation))
           })
 
           for (let { snippetId, selections } of snippetSelections) {
@@ -40,7 +46,7 @@ class FetchedUpload extends React.Component<Props, {}> {
   }
 
   render() {
-    return <SnippetsDisplay selectable={ false } />
+    return <UploadDisplay selectable={ false } />
   }
 }
 
