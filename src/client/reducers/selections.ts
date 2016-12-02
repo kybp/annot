@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import Actions from '../actions'
 import { HighlightSelection, SnippetSelections } from '../models'
 
@@ -39,6 +40,15 @@ const selections = (
       [action.snippetId]: result
     })
   }
+
+  case Actions.ADD_ANNOTATION:
+    return _.fromPairs(_.toPairs(state).map(([snippetId, selections]) => (
+      [snippetId, selections.map((selection: HighlightSelection) => (
+        Object.assign({}, selection, {
+          annotationId: selection.annotationId || action.id
+        })
+      ))]
+    )))
 
   case Actions.ADD_SNIPPET:
     return Object.assign({}, state, { [action.id]: [] })

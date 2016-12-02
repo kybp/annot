@@ -9,7 +9,7 @@ describe('selections reducer', () => {
   const initialState = reducer(undefined, { type: 'INIT' })
   const snippet      = { id: 'x1', title: 'a title', body: 'a body' }
   const snippetId    = snippet.id
-  const annotationId = 'a1'
+  const annotationId: string = null
 
   const addStartEnd = (start: number, end: number) => {
     return addSelection({ snippetId, annotationId, start, end })
@@ -125,6 +125,30 @@ describe('selections reducer', () => {
       const initial = reducer(initialState, addSnippet(snippet))
       const updated = reducer(initial, clearSnippets())
       assert.deepEqual(updated, initialState)
+    })
+  })
+
+  describe(Actions[Actions.ADD_ANNOTATION], () => {
+    it("replaces null annotation ID's with the new ID", () => {
+      const initial = reducer(initialState, addSnippet(snippet))
+      const added   = reducer(initial, addStartEnd(0, 1))
+      const id      = 'a1'
+      const action  = addAnnotation({ id, title: 'title', body: 'body' })
+      const updated = reducer(added, action)
+      assert.strictEqual(updated[snippet.id][0].annotationId, id)
+    })
+
+    it("does not replace non-null annotation ID's", () => {
+      const initial = reducer(initialState, addSnippet(snippet))
+      const id      = 'a1'
+      const added   = reducer(initial, addSelection({
+        snippetId, annotationId: id, start: 0, end: 1
+      }))
+      const action = addAnnotation({
+        id: 'other' + id, title: 'title', body: 'body'
+      })
+      const updated = reducer(added, action)
+      assert.strictEqual(updated[snippet.id][0].annotationId, id)
     })
   })
 })
