@@ -9,7 +9,8 @@
     "build:server": "tsc src/server.ts --outDir .",
     "doc": "typedoc --out ./doc src",
     "lint": "tslint 'src/**/*.ts'",
-    "test": "karma start"
+    "test": "karma start",
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",
