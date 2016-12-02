@@ -6,11 +6,13 @@
   "scripts": {
     "build": "npm run build:client && npm run build:server",
     "build:client": "webpack",
+    "build:dbinit": "tsc src/db.ts --outDir .",
     "build:server": "tsc src/server.ts --outDir .",
+    "clean": "rm -rf node_modules dist db.js server.js models.js",
     "doc": "typedoc --out ./doc src",
     "lint": "tslint 'src/**/*.ts'",
     "test": "karma start",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build && npm run build:dbinit && node db.js"
   },
   "keywords": [],
   "author": "",
@@ -18,9 +20,11 @@
   "dependencies": {
     "@types/body-parser": "^0.0.33",
     "@types/chai": "^3.4.34",
+    "@types/es6-promise": "^0.0.32",
     "@types/express": "^4.0.34",
     "@types/lodash": "^4.14.40",
     "@types/mocha": "^2.2.32",
+    "@types/pg-promise": "^0.0.28",
     "@types/react": "^0.14.41",
     "@types/react-dom": "^0.14.17",
     "@types/react-redux": "^4.4.32",
@@ -42,6 +46,7 @@
     "karma-webpack": "^1.8.0",
     "lodash": "^4.17.2",
     "mocha": "^3.1.2",
+    "pg-promise": "^5.4.5",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",

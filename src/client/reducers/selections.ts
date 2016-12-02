@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import Actions from '../actions'
-import { HighlightSelection, SnippetSelections } from '../models'
+import { HighlightSelection, SnippetSelections } from '../../models'
 
 const selections = (
   state: SnippetSelections = {}, action: any

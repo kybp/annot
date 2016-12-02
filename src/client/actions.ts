@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { Annotation, Snippet, SnippetSelections } from './models'
+import { Annotation, Snippet, SnippetSelections } from '../models'
 
 enum Actions {
   ADD_ANNOTATION,

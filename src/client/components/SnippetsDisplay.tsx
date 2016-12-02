@@ -2,8 +2,8 @@ import * as React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import { addSelection } from '../actions'
-import { Snippet } from '../models'
-import { HighlightSelection, SnippetSelections } from '../models'
+import { Snippet } from '../../models'
+import { HighlightSelection, SnippetSelections } from '../../models'
 import SnippetBodyDisplay from './SnippetBodyDisplay'
 
 /**

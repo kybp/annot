@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Annotation } from '../models'
+import { Annotation } from '../../models'
 import AnnotationDisplay from './AnnotationDisplay'
 import AnnotationSelector from './AnnotationSelector'
 import SnippetsDisplay from './SnippetsDisplay'

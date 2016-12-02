@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { addAnnotation, addSnippet } from '../actions'
-import { Annotation, Snippet, SnippetSelections } from '../models'
+import { Annotation, Snippet, SnippetSelections } from '../../models'
 import ModalForm from './ModalForm'
 
 interface Props {

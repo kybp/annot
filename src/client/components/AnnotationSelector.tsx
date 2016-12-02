@@ -2,8 +2,8 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { selectAnnotation } from '../actions'
-import { HighlightSelection, SnippetSelections } from '../models'
-import { Annotation } from '../models'
+import { HighlightSelection, SnippetSelections } from '../../models'
+import { Annotation } from '../../models'
 
 interface Props {
   currentAnnotation?: Annotation

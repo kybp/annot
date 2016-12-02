@@ -1,5 +1,5 @@
 import Actions from '../actions'
-import { Annotation, SnippetSelections } from '../models'
+import { Annotation, SnippetSelections } from '../../models'
 
 const annotations = (state: Annotation[] = [], action: any): Annotation[] => {
   switch (action.type) {

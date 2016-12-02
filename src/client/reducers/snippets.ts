@@ -1,5 +1,5 @@
 import Actions from '../actions'
-import { Snippet } from '../models'
+import { Snippet } from '../../models'
 
 const snippets = (state: Snippet[] = [], action: any) => {
   switch (action.type) {
