@@ -1,8 +1,9 @@
 import * as bodyParser from 'body-parser'
 import * as express from 'express'
+import * as path from 'path'
 
 const app = express()
-app.use('/', express.static('dist'))
+app.use(express.static(path.resolve(__dirname, 'dist')))
 app.use(bodyParser.json())
 
 app.get('/api/uploads/:id', (req, res) => {
@@ -34,6 +35,10 @@ app.get('/api/uploads/:id', (req, res) => {
       body:  'the second annotation'
     }]
   })
+})
+
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
 
 app.listen(process.env.PORT || 3000)
