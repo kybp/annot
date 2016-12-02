@@ -6,8 +6,14 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, 'dist')))
 app.use(bodyParser.json())
 
-app.get('/api/uploads/:id', (req, res) => {
-  res.json({
+app.post('/api/uploads', (request, response) => {
+  const json = request.body
+  json.id = 1
+  response.status(201).json(json)
+})
+
+app.get('/api/uploads/:id', (request, response) => {
+  response.json({
     snippets: [{
       id:    'x1',
       title: 'one',
@@ -17,14 +23,13 @@ app.get('/api/uploads/:id', (req, res) => {
       title: 'two',
       body:  'second body'
     }],
-    snippetSelections: [{
-      snippetId:  'x1',
-      selections: [{
+    snippetSelections: {
+      x1: [{
         annotationId: 'a1', start: 0, end: 3
       }, {
         annotationId: 'a2', start: 3, end: 6
       }]
-    }],
+    },
     annotations: [{
       id:    'a1',
       title: 'un',

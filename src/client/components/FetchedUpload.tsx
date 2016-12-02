@@ -29,7 +29,8 @@ class FetchedUpload extends React.Component<Props, {}> {
             this.props.dispatch(addAnnotation(annotation))
           })
 
-          for (let { snippetId, selections } of snippetSelections) {
+          for (let snippetId of Object.keys(snippetSelections)) {
+            const selections = snippetSelections[snippetId]
             for (let { annotationId, start, end } of selections) {
               this.props.dispatch(addSelection({
                 annotationId, snippetId, start, end
