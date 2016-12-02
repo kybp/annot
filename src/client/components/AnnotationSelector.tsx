@@ -1,11 +1,14 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { selectAnnotation } from '../actions'
+import { HighlightSelection, SnippetSelections } from '../models'
 import { Annotation } from '../models'
 
 interface Props {
   currentAnnotation?: Annotation
   annotations?:       Annotation[]
+  pendingSelections?: boolean
   dispatch?:          (action: any) => void
 }
 
@@ -18,7 +21,11 @@ class AnnotationSelector extends React.Component<Props, {}> {
   }
 
   selectAnnotation(annotation: Annotation) {
-    this.props.dispatch(selectAnnotation(annotation.id))
+    if (this.props.pendingSelections) {
+      alert('Please save pending selections before selecting an annotation')
+    } else {
+      this.props.dispatch(selectAnnotation(annotation.id))
+    }
   }
 
   render() {
@@ -38,15 +45,20 @@ class AnnotationSelector extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (
-  { currentAnnotation, annotations }:
-  { currentAnnotation: string, annotations: Annotation[] },
+  { currentAnnotation, annotations, selections }:
+  { currentAnnotation: string, annotations: Annotation[],
+    selections: SnippetSelections },
   ownProps: Props
 ): Props => {
   return Object.assign({}, ownProps, {
     annotations,
     currentAnnotation: annotations.find((annotation) => (
       annotation.id === currentAnnotation)
-    ) || { title: 'No annotation selected', body: '' }
+    ) || { title: 'No annotation selected', body: '' },
+    pendingSelections: _.toPairs(selections).some(([snippetId, selections]) => (
+      selections.some((selection: HighlightSelection) => (
+        selection.annotationId === null)
+    )))
   })
 }
 

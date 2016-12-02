@@ -1,6 +1,7 @@
 import * as mocha from 'mocha'
 import { assert } from 'chai'
-import Actions, { clearCurrentAnnotation, selectAnnotation } from '../actions'
+import Actions, { addSelection }  from '../actions'
+import { clearCurrentAnnotation, selectAnnotation }  from '../actions'
 import reducer from './current-annotation'
 
 describe('current annotation reducer', () => {
@@ -16,6 +17,16 @@ describe('current annotation reducer', () => {
     it('resets the current annotation', () => {
       const initial = reducer(initialState, selectAnnotation('a1'))
       const updated = reducer(initial, clearCurrentAnnotation())
+      assert.strictEqual(updated, initialState)
+    })
+  })
+
+  describe(Actions[Actions.ADD_SELECTION], () => {
+    it('resets the current annotation', () => {
+      const initial = reducer(initialState, selectAnnotation('a1'))
+      const updated = reducer(initial, addSelection({
+        annotationId: 'a', snippetId: 's', start: 0, end: 1
+      }))
       assert.strictEqual(updated, initialState)
     })
   })
