@@ -126,13 +126,25 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
   }
 
   render() {
-    if (this.props.snippets.length === 0) return <h1>Empty !</h1>
+    if (this.props.snippets.length === 0) {
+      return (
+        <div className="card" style={{ height: '100%'}}>
+          <div className="card-header">
+          </div>
+          <div className="card-block">
+            Add some snippets to get started. Then highlight some relevant
+            parts, and add annotations explaining them. Once you're ready,
+            hit Upload so you can share it with the world.
+          </div>
+        </div>
+      )
+    }
 
     const firstSnippet  = this.props.snippets[0]
     const otherSnippets = this.props.snippets.slice(1)
 
     return (
-      <div className="card text-xs-center">
+      <div className="card" style={{ height: '100%' }}>
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs pull-xs-left">
             <SnippetNavItem
