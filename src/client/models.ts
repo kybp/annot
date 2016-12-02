@@ -1,7 +1,7 @@
 export type Annotation = {
-  id:         string
-  title:      string
-  body:       string
+  id:    string
+  title: string
+  body:  string
 }
 
 export type Snippet = {
