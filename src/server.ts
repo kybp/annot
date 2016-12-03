@@ -93,34 +93,54 @@ app.post('/api/uploads', (request, response) => {
   }).catch((error) => response.status(500).json(error))
 })
 
+type State = {
+  snippets:          Snippet[]
+  snippetSelections: { [snippetId: string]: HighlightSelection[] }
+  annotations:       Annotation[]
+}
+
 app.get('/api/uploads/:id', (request, response) => {
-  response.json({
-    snippets: [{
-      id:    'x1',
-      title: 'one',
-      body:  'first body'
-    }, {
-      id:    'x2',
-      title: 'two',
-      body:  'second body'
-    }],
-    snippetSelections: {
-      x1: [{
-        annotationId: 'a1', start: 0, end: 3
-      }, {
-        annotationId: 'a2', start: 3, end: 6
-      }]
-    },
-    annotations: [{
-      id:    'a1',
-      title: 'un',
-      body:  'the first annotation'
-    }, {
-      id:    'a2',
-      title: 'deux',
-      body:  'the second annotation'
-    }]
-  })
+  const uploadId = request.params.id
+
+  const getSnippets = db.many(
+    'SELECT id, title, body FROM snippets WHERE upload_id = $1;',
+    uploadId).then((snippets) => (
+      snippets.map((snippet) => Object.assign({}, snippet, {
+        id: 'snippet-' + snippet.id
+      }))
+    ))
+
+  const getAnnotations = db.many(
+    'SELECT id, title, body FROM annotations where upload_id = $1;',
+    uploadId).then((snippets) => (
+      snippets.map((snippet) => Object.assign({}, snippet, {
+        id: 'annotation-' + snippet.id
+      }))
+    ))
+
+  const getSelections = db.many(
+    `SELECT id, start, finish, annotation_id, snippet_id FROM selections
+     WHERE upload_id = $1;`,
+    uploadId)
+
+  Promise.all([getSnippets, getAnnotations, getSelections])
+    .then(([snippets, annotations, selections]) => {
+      const json: State = { snippets, annotations, snippetSelections: {} }
+
+      snippets.forEach((snippet) => {
+        json.snippetSelections[snippet.id] = []
+      })
+
+      selections.forEach((selection) => {
+        json.snippetSelections['snippet-' + selection.snippet_id].push({
+          start:        selection.start,
+          end:          selection.finish,
+          annotationId: 'annotation-' + selection.annotation_id
+        })
+      })
+
+      response.status(200).json(json)
+    }).catch(error => {console.log(error);response.status(500).json(error)})
 })
 
 app.get('*', (request, response) => {
