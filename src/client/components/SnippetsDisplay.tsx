@@ -144,7 +144,8 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
     const otherSnippets = this.props.snippets.slice(1)
 
     return (
-      <div className="card" style={{ overflow: 'scroll', height: '100%' }}>
+      <div className="card" style={{ overflow: 'auto', height: '100%',
+                                     marginBottom: 0 }}>
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs pull-xs-left">
             <SnippetNavItem

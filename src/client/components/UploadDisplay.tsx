@@ -15,10 +15,10 @@ class UploadDisplay extends React.Component<Props, {}> {
     return (
       <div style={{ display: 'flex', height: '80vh' }}>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column'}}>
-          <div style={{ height: '100%' }}>
+          <div style={{ flex: 2, display: 'flex', flexDirection: 'column' }}>
             <SnippetsDisplay selectable={ this.props.selectable } />
           </div>
-          <div style={{ height: '50%' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <AnnotationDisplay annotation={ this.props.annotation } />
           </div>
         </div>
