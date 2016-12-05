@@ -5,6 +5,9 @@ interface Props {
   annotation: Annotation
 }
 
+/**
+ * A component to display its `annotation` prop to the user.
+ */
 class AnnotationDisplay extends React.Component<Props, {}> {
   render() {
     return (

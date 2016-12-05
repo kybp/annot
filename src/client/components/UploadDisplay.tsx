@@ -10,6 +10,16 @@ interface Props {
   annotation?: Annotation
 }
 
+/**
+ * A component for displaying an entire upload to the user, consisting
+ * of its snippets and annotations, with means for selecting between
+ * both. All state concerning what to display is retrieved from the
+ * Redux store. The `selectable` prop indicates whether the user
+ * should be able to add new selections, snippets, and annotations;
+ * for displaying an upload while it is still being worked on, it
+ * should be true, and for displaying a fetched upload from the
+ * database it should be set to false.
+ */
 class UploadDisplay extends React.Component<Props, {}> {
   render() {
     return (

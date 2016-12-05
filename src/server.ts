@@ -15,6 +15,9 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, 'dist')))
 app.use(bodyParser.json())
 
+/**
+ * Save a single selection in the database.
+ */
 export const insertSelection = (
   { start, end, annotationId, snippetId, uploadId }:
   { start: number, end: number,
@@ -29,12 +32,29 @@ export const insertSelection = (
   )
 }
 
+/**
+ * A simple abstraction over snippets and annotations, to tidy up the
+ * signature of [[getDbIds]]. This abstraction could probably be used
+ * in other places in the project, but right now it isn't, which is
+ * why it lives here instead of in `models.ts`.
+ */
 type blob = {
   id:    string
   title: string
   body:  string
 }
 
+/**
+ * Insert an array of items into the database, and return a map of
+ * their client-provided temporary ID's to their permanent ID's in the
+ * database.
+ *
+ * When the client submits an upload to be saved, it will have
+ * generated its own page-unique ID's for each of the items. To
+ * preserve the links between objects as they are saved in the
+ * database, we need to provide a way of translating the client-side
+ * ID's into database ones.
+ */
 export const getDbIds = (
   { blobs, uploadId, db, table }:
   { blobs: blob[], uploadId: number, db: IDatabase<{}>, table: string }

@@ -10,7 +10,22 @@ interface Props {
   dispatch?: (action: any) => void
 }
 
+/**
+ * A component for displaying a fetched upload from the database to
+ * the user. The `params` prop should hold an `id` key containing the
+ * upload's ID in the database.
+ */
 class FetchedUpload extends React.Component<Props, {}> {
+
+  /**
+   * Make an AJAX request to the backend for the requested upload and
+   * populate the Redux store with its data, clearing out any existing
+   * upload state.
+   *
+   * If there is a problem with the AJAX request, this currently
+   * simply logs the error to the console and makes no attempt at
+   * handling the error.
+   */
   componentWillMount() {
     this.props.dispatch(clearSnippets())
 
@@ -38,7 +53,7 @@ class FetchedUpload extends React.Component<Props, {}> {
             }
           }
         } else {
-          console.log(`error (${xhr.status}): ${xhr.responseText}`)
+          console.error(`error (${xhr.status}): ${xhr.responseText}`)
         }
       }
     }

@@ -12,7 +12,23 @@ interface Props {
   dispatch?:          (action: any) => void
 }
 
+/**
+ * A component for showing the user the list of annotations for the
+ * current upload, and allowing them to select an annotation to
+ * view. Once an annotation has been selected, there is currently no
+ * way for the user to unselect an annotation, only to select a
+ * different one.
+ */
 class AnnotationSelector extends React.Component<Props, {}> {
+
+  /**
+   * Return the CSS class to give an annotation's list item, allowing
+   * the currently selected annotation to be styled differently. In
+   * the future, this function will not be needed as a different
+   * component will be used for displaying the current annotation,
+   * letting us easily unselect an annotation when the active one is
+   * clicked.
+   */
   listGroupItemClass(id: string) {
     return 'list-group-item ' + (
       id === this.props.currentAnnotation.id ?
@@ -20,6 +36,12 @@ class AnnotationSelector extends React.Component<Props, {}> {
     )
   }
 
+  /**
+   * A handler function for setting the currently selected annotation
+   * in the Redux store when an annotation in the list is clicked. If
+   * there are pending selections, this will instead tell the user to
+   * save them first.
+   */
   selectAnnotation(annotation: Annotation) {
     if (this.props.pendingSelections) {
       alert('Please save pending selections before selecting an annotation')

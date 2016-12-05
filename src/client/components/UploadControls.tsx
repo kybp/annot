@@ -10,7 +10,23 @@ interface Props {
   uploadJson?: any
 }
 
+/**
+ * A component for offering the user buttons to add snippets and
+ * annotations, as well as save the current upload to the database. To
+ * be rendered by [[NewUpload]].
+ */
 class UploadControls extends React.Component<Props, {}> {
+
+  /**
+   * Make an AJAX request to the server to save the current upload
+   * state in the database. Once the server responds with 201 created,
+   * redirect the user to the newly created upload. To be called when
+   * the user presses the upload button.
+   *
+   * If there is a problem with the AJAX request, this currently
+   * simply logs the error to the console and makes no attempt at
+   * handling the error.
+   */
   doUpload() {
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
@@ -20,7 +36,7 @@ class UploadControls extends React.Component<Props, {}> {
           const json = JSON.parse(xhr.responseText)
           window.location.href = `/uploads/${json.id}`
         } else {
-          console.log(`error (${xhr.status}): ${xhr.responseText}`)
+          console.error(`error (${xhr.status}): ${xhr.responseText}`)
         }
       }
     }
