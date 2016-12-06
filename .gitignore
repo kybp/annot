@@ -3,4 +3,4 @@ dist
 doc
 server.js
 models.js
-db.js
+db-init.js

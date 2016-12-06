@@ -34,5 +34,6 @@ CREATE TABLE IF NOT EXISTS selections(
 `).then(() => pgp.end())
   .catch((error) => {
     pgp.end()
+    console.error(error)
     process.exit(1)
   })
