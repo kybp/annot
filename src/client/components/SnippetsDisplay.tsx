@@ -128,7 +128,8 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
   render() {
     if (this.props.snippets.length === 0) {
       return (
-        <div className="card" style={{ height: '100%'}}>
+        <div className="card" style={{ overflow: 'auto', height: '100%',
+                                       marginBottom: 0 }}>
           <div className="card-header">
           </div>
           <div className="card-block">
