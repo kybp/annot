@@ -60,11 +60,11 @@ export const getDbIds = (
   { blobs: blob[], uploadId: number, db: IDatabase<{}>, table: string }
 ): Promise<Dictionary<number>> => {
   const promises: Promise<[string, number]>[] =
-    blobs.map(({ id, title, body }) => (
-      db.one(`INSERT INTO ${table} (title, body, upload_id)
-              VALUES ($1, $2, $3)
+    blobs.map(({ id, title, body }, index) => (
+      db.one(`INSERT INTO ${table} (title, body, upload_id, index)
+              VALUES ($1, $2, $3, $4)
               RETURNING id;`,
-             [title, body, uploadId])
+             [title, body, uploadId, index])
         .then(row => [id, row.id])
     ))
   return Promise.all(promises).then(pairs => _.fromPairs(pairs))
@@ -123,7 +123,9 @@ app.get('/api/uploads/:id', (request, response) => {
   const uploadId = request.params.id
 
   const getSnippets = db.many(
-    'SELECT id, title, body FROM snippets WHERE upload_id = $1;',
+    `SELECT id, title, body FROM snippets
+     WHERE upload_id = $1
+     ORDER BY index;`,
     uploadId).then((snippets) => (
       snippets.map((snippet) => Object.assign({}, snippet, {
         id: 'snippet-' + snippet.id
@@ -131,7 +133,9 @@ app.get('/api/uploads/:id', (request, response) => {
     ))
 
   const getAnnotations = db.many(
-    'SELECT id, title, body FROM annotations where upload_id = $1;',
+    `SELECT id, title, body FROM annotations
+     WHERE upload_id = $1
+     ORDER BY index;`,
     uploadId).then((snippets) => (
       snippets.map((snippet) => Object.assign({}, snippet, {
         id: 'annotation-' + snippet.id

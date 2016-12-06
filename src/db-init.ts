@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS annotations(
     id        SERIAL PRIMARY KEY,
     title     TEXT NOT NULL,
     body      TEXT NOT NULL,
+    index     INTEGER NOT NULL,
     upload_id INTEGER NOT NULL REFERENCES uploads
 );
 
@@ -20,6 +21,7 @@ CREATE TABLE IF NOT EXISTS snippets(
     id        SERIAL PRIMARY KEY,
     title     TEXT NOT NULL,
     body      TEXT NOT NULL,
+    index     INTEGER NOT NULL,
     upload_id INTEGER NOT NULL REFERENCES uploads
 );
 
