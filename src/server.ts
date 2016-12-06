@@ -122,7 +122,7 @@ type State = {
 app.get('/api/uploads/:id', (request, response) => {
   const uploadId = request.params.id
 
-  const getSnippets = db.many(
+  const getSnippets = db.manyOrNone(
     `SELECT id, title, body FROM snippets
      WHERE upload_id = $1
      ORDER BY index;`,
@@ -132,7 +132,7 @@ app.get('/api/uploads/:id', (request, response) => {
       }))
     ))
 
-  const getAnnotations = db.many(
+  const getAnnotations = db.manyOrNone(
     `SELECT id, title, body FROM annotations
      WHERE upload_id = $1
      ORDER BY index;`,
@@ -142,7 +142,7 @@ app.get('/api/uploads/:id', (request, response) => {
       }))
     ))
 
-  const getSelections = db.many(
+  const getSelections = db.manyOrNone(
     `SELECT id, start, finish, annotation_id, snippet_id FROM selections
      WHERE upload_id = $1;`,
     uploadId)
