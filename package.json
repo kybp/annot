@@ -1,8 +1,7 @@
 {
   "name": "annot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A web app for annotating groups of text snippets",
   "scripts": {
     "build": "npm run build:client && npm run build:server",
     "build:client": "webpack",
@@ -13,9 +12,12 @@
     "test": "karma start",
     "postinstall": "npm run build && node db-init.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Kyle Brown",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kybp/annot.git"
+  },
   "dependencies": {
     "@types/body-parser": "^0.0.33",
     "@types/chai": "^3.4.34",
