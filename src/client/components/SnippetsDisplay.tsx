@@ -145,8 +145,7 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
     const otherSnippets = this.props.snippets.slice(1)
 
     return (
-      <div className="card" style={{ overflow: 'auto', height: '100%',
-                                     marginBottom: 0 }}>
+      <div className="card" style={{ height: '100%', paddingBottom: '53px' }}>
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs pull-xs-left">
             <SnippetNavItem
@@ -159,7 +158,8 @@ class SnippetsDisplay extends React.Component<SnippetsDisplayProps, {}> {
               ))}
           </ul>
         </div>
-        <div className="card-block tab-content">
+        <div className="card-block tab-content"
+             style={{ height: '100%', overflow: 'auto' }}>
           <SnippetTabPane snippet={ firstSnippet } active={ true }
                           selectable={ this.props.selectable }
                           selections={ this.selectionsFor(firstSnippet) }

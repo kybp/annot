@@ -43,7 +43,11 @@ class SnippetBodyDisplay extends React.Component<Props, {}> {
       )
     }
 
-    return <div style={{ whiteSpace: 'pre' }}>{ chunks }</div>
+    return (
+      <div style={{ height: 0, whiteSpace: 'pre' }}>
+          { chunks }
+      </div>
+    )
   }
 }
 
