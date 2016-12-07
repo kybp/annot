@@ -19,16 +19,13 @@ class FetchedUpload extends React.Component<Props, {}> {
 
   /**
    * Make an AJAX request to the backend for the requested upload and
-   * populate the Redux store with its data, clearing out any existing
-   * upload state.
+   * populate the Redux store with its data.
    *
    * If there is a problem with the AJAX request, this currently
    * simply logs the error to the console and makes no attempt at
    * handling the error.
    */
   componentWillMount() {
-    this.props.dispatch(clearSnippets())
-
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -59,6 +56,10 @@ class FetchedUpload extends React.Component<Props, {}> {
     }
     xhr.open('GET', `/api/uploads/${this.props.params['id']}`)
     xhr.send()
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearSnippets())
   }
 
   render() {

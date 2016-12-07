@@ -100,7 +100,7 @@ class ModalForm extends React.Component<Props, State> {
     return (
       <div>
         <button data-toggle="modal" data-target={ `#${ this.modalId }` }
-                className="btn btn-primary">
+                className="btn btn-outline-primary">
           { this.props.title }
         </button>
 
