@@ -3,9 +3,11 @@ import { Annotation, Snippet, SnippetSelections } from '../models'
 
 enum Actions {
   ADD_ANNOTATION,
+  ADD_CONTROL,
   ADD_SELECTION,
   ADD_SNIPPET,
   CLEAR_ANNOTATIONS,
+  CLEAR_CONTROLS,
   CLEAR_CURRENT_ANNOTATION,
   CLEAR_SELECTIONS,
   CLEAR_SNIPPETS,
@@ -23,6 +25,13 @@ export const addAnnotation = (
     type: Actions.ADD_ANNOTATION,
     title, body,
     id: id || _.uniqueId('annotation-')
+  }
+}
+
+export const addControl = (control: JSX.Element) => {
+  return {
+    type: Actions.ADD_CONTROL,
+    control
   }
 }
 
@@ -50,6 +59,12 @@ export const addSnippet = (
 export const clearAnnotations = () => {
   return {
     type: Actions.CLEAR_ANNOTATIONS
+  }
+}
+
+export const clearControls = () => {
+  return {
+    type: Actions.CLEAR_CONTROLS
   }
 }
 
