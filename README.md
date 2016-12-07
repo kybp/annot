@@ -4,6 +4,8 @@ Annot offers a simple way to share comments on specific parts of some
 pieces of text. Annot is written in Typescript, using React, Redux,
 Express, and PostgreSQL.
 
+[Try out the running app here.](http://annotapp.herokuapp.com/)
+
 # Building and Running
 
 From the root directory, run `npm i` or `yarn`. This will pull in the
