@@ -56,6 +56,11 @@ class NewUpload extends React.Component<Props, {}> {
    * handling the error.
    */
   doUpload() {
+    if (this.props.uploadJson.snippets.length === 0) {
+      alert('Please add at least one snippet before uploading')
+      return
+    }
+
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState == XMLHttpRequest.DONE) {
