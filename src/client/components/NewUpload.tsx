@@ -65,7 +65,6 @@ class NewUpload extends React.Component<Props, {}> {
     xhr.onreadystatechange = () => {
       if (xhr.readyState == XMLHttpRequest.DONE) {
         if (xhr.status === 201) {
-          console.log(`response: ${xhr.responseText}`)
           const json = JSON.parse(xhr.responseText)
           window.location.href = `/uploads/${json.id}`
         } else {
