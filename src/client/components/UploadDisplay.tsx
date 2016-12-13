@@ -35,7 +35,7 @@ class UploadDisplay extends React.Component<Props, {}> {
         </div>
         <div style={{ width: '20%', overflowY: 'scroll', whiteSpace: 'nowrap',
                       border: '1px solid rgba(0, 0, 0, .125)' }}>
-          <AnnotationSelector />
+          <AnnotationSelector editable={ this.props.selectable } />
         </div>
       </div>
     )
