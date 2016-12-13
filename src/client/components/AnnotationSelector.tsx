@@ -30,9 +30,8 @@ class AnnotationSelector extends React.Component<Props, {}> {
    * clicked.
    */
   listGroupItemClass(id: string) {
-    return 'list-group-item ' + (
-      id === this.props.currentAnnotation.id ?
-      'active' : 'list-group-item-action'
+    return 'list-group-item list-group-item-action ' + (
+      id === this.props.currentAnnotation.id ? 'active' : ''
     )
   }
 
@@ -54,12 +53,12 @@ class AnnotationSelector extends React.Component<Props, {}> {
     return (
       <div className="list-group">
         { this.props.annotations.map((annotation, index) => (
-            <a className={ this.listGroupItemClass(annotation.id) }
-               onClick={ () => this.selectAnnotation(annotation) }
-               style={{ padding: '.25rem 1.25rem' }}
-               href="#" key={ index }>
+            <button className={ this.listGroupItemClass(annotation.id) }
+                    onClick={ () => this.selectAnnotation(annotation) }
+                    style={{ padding: '.25rem 1.25rem' }}
+                    key={ index }>
               { annotation.title }
-            </a>
+            </button>
           ))}
       </div>
     )
