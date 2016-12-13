@@ -7,12 +7,6 @@ const selections = (
 ): SnippetSelections => {
   switch (action.type) {
 
-  case Actions.CLEAR_SELECTIONS: {
-    const result: SnippetSelections = {}
-    Object.keys(state).forEach(key => result[key] = [])
-    return result
-  }
-
   case Actions.ADD_SELECTION: {
     if (action.start === action.end) return state
 
@@ -41,6 +35,12 @@ const selections = (
     })
   }
 
+  case Actions.CLEAR_SELECTIONS: {
+    const result: SnippetSelections = {}
+    Object.keys(state).forEach(key => result[key] = [])
+    return result
+  }
+
   case Actions.ADD_ANNOTATION:
     return _.fromPairs(_.toPairs(state).map(([snippetId, selections]) => (
       [snippetId, selections.map((selection: HighlightSelection) => (
@@ -57,11 +57,11 @@ const selections = (
       })]
     )))
 
-  case Actions.REMOVE_SNIPPET:
-    return _.omit(state, action.snippetId) as SnippetSelections
-
   case Actions.ADD_SNIPPET:
     return Object.assign({}, state, { [action.id]: [] })
+
+  case Actions.REMOVE_SNIPPET:
+    return _.omit(state, action.snippetId) as SnippetSelections
 
   case Actions.CLEAR_SNIPPETS:
     return {}

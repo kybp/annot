@@ -164,7 +164,10 @@ app.get('/api/uploads/:id', (request, response) => {
       })
 
       response.status(200).json(json)
-    }).catch(error => {console.log(error);response.status(500).json(error)})
+    }).catch((error) => {
+      console.log(error)
+      response.status(500).json(error)
+    })
 })
 
 app.get('*', (request, response) => {

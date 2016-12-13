@@ -149,8 +149,9 @@ describe('selections reducer', () => {
   describe(Actions[Actions.ADD_ANNOTATION], () => {
     it("replaces null annotation ID's with the new ID", () => {
       const initial   = reducer(initialState, addSnippet(snippet))
-      const selection =
-        { snippetId, annotationId: null as string, start: 0, end: 1 }
+      const selection = {
+        snippetId, annotationId: null as string, start: 0, end: 1
+      }
       const added     = reducer(initial, addSelection(selection))
       const id        = 'a1'
       const action    = addAnnotation({ id, title: 'title', body: 'body' })
