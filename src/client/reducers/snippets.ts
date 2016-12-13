@@ -7,6 +7,9 @@ const snippets = (state: Snippet[] = [], action: any) => {
   case Actions.ADD_SNIPPET:
     return state.concat({ id: action.id, title: action.title, body: action.body })
 
+  case Actions.REMOVE_SNIPPET:
+    return state.filter((snippet) => snippet.id !== action.snippetId)
+
   case Actions.CLEAR_SNIPPETS:
     return []
 

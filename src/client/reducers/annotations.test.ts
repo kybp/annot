@@ -1,6 +1,6 @@
 import * as mocha from 'mocha'
 import { assert } from 'chai'
-import Actions, { addAnnotation } from '../actions'
+import Actions, { addAnnotation, removeAnnotation } from '../actions'
 import { clearAnnotations, clearSnippets } from '../actions'
 import reducer from './annotations'
 
@@ -22,6 +22,14 @@ describe('annotations reducer', () => {
     it('adds the annotation to its state', () => {
       const afterAdd = reducer(initialState, addAnnotation(annotation))
       assert.deepEqual(afterAdd, [annotation])
+    })
+  })
+
+  describe(Actions[Actions.REMOVE_ANNOTATION], () => {
+    it('removes the indicated annotation from its state', () => {
+      const afterAdd    = reducer(initialState, addAnnotation(annotation))
+      const afterRemove = reducer(afterAdd,     removeAnnotation(annotation.id))
+      assert.deepEqual(afterRemove, initialState)
     })
   })
 

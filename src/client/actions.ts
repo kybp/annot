@@ -12,6 +12,8 @@ enum Actions {
   CLEAR_SELECTIONS,
   CLEAR_SNIPPETS,
   DO_UPLOAD,
+  REMOVE_ANNOTATION,
+  REMOVE_SNIPPET,
   SELECT_ANNOTATION,
 }
 
@@ -89,6 +91,20 @@ export const clearSnippets = () => {
 export const doUpload = () => {
   return {
     type: Actions.DO_UPLOAD
+  }
+}
+
+export const removeAnnotation = (annotationId: string) => {
+  return {
+    type: Actions.REMOVE_ANNOTATION,
+    annotationId
+  }
+}
+
+export const removeSnippet = (snippetId: string) => {
+  return {
+    type: Actions.REMOVE_SNIPPET,
+    snippetId
   }
 }
 

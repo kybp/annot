@@ -50,6 +50,16 @@ const selections = (
       ))]
     )))
 
+  case Actions.REMOVE_ANNOTATION:
+    return _.fromPairs(_.toPairs(state).map(([snippetId, selections]) => (
+      [snippetId, selections.filter((selection: HighlightSelection) => {
+        return selection.annotationId !== action.annotationId
+      })]
+    )))
+
+  case Actions.REMOVE_SNIPPET:
+    return _.omit(state, action.snippetId) as SnippetSelections
+
   case Actions.ADD_SNIPPET:
     return Object.assign({}, state, { [action.id]: [] })
 

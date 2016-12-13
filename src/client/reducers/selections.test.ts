@@ -2,6 +2,7 @@ import * as mocha from 'mocha'
 import { assert } from 'chai'
 import Actions from '../actions'
 import { addAnnotation, addSelection, addSnippet } from '../actions'
+import { removeAnnotation, removeSnippet } from '../actions'
 import { clearSelections, clearSnippets } from '../actions'
 import reducer from './selections'
 
@@ -9,7 +10,7 @@ describe('selections reducer', () => {
   const initialState = reducer(undefined, { type: 'INIT' })
   const snippet      = { id: 'x1', title: 'a title', body: 'a body' }
   const snippetId    = snippet.id
-  const annotationId: string = null
+  const annotationId = 'annotationId'
 
   const addStartEnd = (start: number, end: number) => {
     return addSelection({ snippetId, annotationId, start, end })
@@ -111,6 +112,23 @@ describe('selections reducer', () => {
     })
   })
 
+  describe(Actions[Actions.REMOVE_ANNOTATION], () => {
+    it('removes selections belonging to the annotation from its state', () => {
+      const withSnippet = reducer(initialState, addSnippet(snippet))
+      const afterAdd    = reducer(withSnippet,  addStartEnd(0, 1))
+      const afterRemove = reducer(afterAdd,     removeAnnotation(annotationId))
+      assert.deepEqual(afterRemove, withSnippet)
+    })
+  })
+
+  describe(Actions[Actions.REMOVE_SNIPPET], () => {
+    it('removes the snippet from its state', () => {
+      const afterAdd    = reducer(initialState, addSnippet(snippet))
+      const afterRemove = reducer(afterAdd,     removeSnippet(snippetId))
+      assert.deepEqual(afterRemove, initialState)
+    })
+  })
+
   describe(Actions[Actions.CLEAR_SELECTIONS], () => {
     it('clears the selection list for each snippet', () => {
       const initial  = reducer(initialState, addSnippet(snippet))
@@ -130,11 +148,13 @@ describe('selections reducer', () => {
 
   describe(Actions[Actions.ADD_ANNOTATION], () => {
     it("replaces null annotation ID's with the new ID", () => {
-      const initial = reducer(initialState, addSnippet(snippet))
-      const added   = reducer(initial, addStartEnd(0, 1))
-      const id      = 'a1'
-      const action  = addAnnotation({ id, title: 'title', body: 'body' })
-      const updated = reducer(added, action)
+      const initial   = reducer(initialState, addSnippet(snippet))
+      const selection =
+        { snippetId, annotationId: null as string, start: 0, end: 1 }
+      const added     = reducer(initial, addSelection(selection))
+      const id        = 'a1'
+      const action    = addAnnotation({ id, title: 'title', body: 'body' })
+      const updated   = reducer(added, action)
       assert.strictEqual(updated[snippet.id][0].annotationId, id)
     })
 

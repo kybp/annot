@@ -1,6 +1,7 @@
 import * as mocha from 'mocha'
 import { assert } from 'chai'
-import Actions, { addSnippet, clearSnippets } from '../actions'
+import Actions from '../actions'
+import { addSnippet, removeSnippet, clearSnippets } from '../actions'
 import reducer from './snippets'
 
 describe('snippets reducer', () => {
@@ -18,6 +19,14 @@ describe('snippets reducer', () => {
       const afterAdd   = reducer(initialState, addSnippet(snippet))
       const difference = afterAdd.length - initialState.length
       assert.strictEqual(difference, 1)
+    })
+  })
+
+  describe(Actions[Actions.REMOVE_SNIPPET], () => {
+    it('removes the indicated snippet from its state', () => {
+      const afterAdd    = reducer(initialState, addSnippet(snippet))
+      const afterRemove = reducer(afterAdd,     removeSnippet(snippet.id))
+      assert.deepEqual(afterRemove, initialState)
     })
   })
 

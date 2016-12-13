@@ -11,6 +11,9 @@ const annotations = (state: Annotation[] = [], action: any): Annotation[] => {
       body:  action.body
     })
 
+  case Actions.REMOVE_ANNOTATION:
+    return state.filter((annotation) => annotation.id !== action.annotationId)
+
   case Actions.CLEAR_ANNOTATIONS:
   case Actions.CLEAR_SNIPPETS:
     return []
