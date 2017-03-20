@@ -11,8 +11,7 @@ interface Props {
 class AnnotationDisplay extends React.Component<Props, {}> {
   render() {
     return (
-      <div className="card" style={{ marginBottom: 0, overflow: 'auto',
-                                     height: '100%' }}>
+      <div className="card annotation-display">
         <div className="card-header">
           { this.props.annotation.title }
         </div>

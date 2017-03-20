@@ -1,10 +1,14 @@
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const srcDir   = path.resolve(__dirname, 'src', 'client')
+const buildDir = path.resolve(__dirname, 'dist')
+
 module.exports = {
-  entry: [path.resolve(__dirname, 'src', 'client', 'index.tsx')],
+  entry: [path.join(srcDir, 'index.tsx')],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path:     buildDir,
     filename: '/bundle.js'
   },
   devtool: 'source-map',
@@ -12,8 +16,11 @@ module.exports = {
     extensions: ['', '.ts', '.tsx', '.js']
   },
   plugins: [
+    new CopyWebpackPlugin([{
+      from: path.join(srcDir, 'style.css')
+    }]),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'client', 'index.html')
+      template: path.join(srcDir, 'index.html')
     })
   ],
   module: {

@@ -23,18 +23,16 @@ interface Props {
 class UploadDisplay extends React.Component<Props, {}> {
   render() {
     return (
-      <div style={{ display: 'flex', height: '80vh' }}>
-        <div style={{ display: 'flex', flexDirection: 'column',
-                      width: '100%' }}>
-          <div style={{ flex: 2 }}>
+      <div className="upload-display">
+        <div className="main-display-container">
+          <div className="snippet-display-container">
             <SnippetsDisplay selectable={ this.props.selectable } />
           </div>
-          <div style={{ flex: 1 }}>
+          <div className="annotation-display-container">
             <AnnotationDisplay annotation={ this.props.annotation } />
           </div>
         </div>
-        <div style={{ width: '20%', overflowY: 'scroll', whiteSpace: 'nowrap',
-                      border: '1px solid rgba(0, 0, 0, .125)' }}>
+        <div className="annotation-selector-container">
           <AnnotationSelector />
         </div>
       </div>

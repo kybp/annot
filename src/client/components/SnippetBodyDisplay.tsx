@@ -27,7 +27,7 @@ class SnippetBodyDisplay extends React.Component<Props, {}> {
       }
 
       chunks.push(
-        <mark key={ selection.start } style={{ background: 'yellow' }}>
+        <mark key={ selection.start }>
           { body.slice(selection.start, selection.end) }
         </mark>
       )
@@ -44,7 +44,7 @@ class SnippetBodyDisplay extends React.Component<Props, {}> {
     }
 
     return (
-      <div style={{ height: 0, whiteSpace: 'pre' }}>
+      <div className="snippet-body">
           { chunks }
       </div>
     )
