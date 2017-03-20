@@ -8,8 +8,9 @@ import * as pgPromise from 'pg-promise'
 import { IDatabase } from 'pg-promise'
 import { Annotation, HighlightSelection, Snippet } from './models'
 
-const url = process.env.DATABASE_URL || 'postgres://localhost:5432/annot'
-const db  = pgPromise()(url)
+const dbUrl = process.env.DATABASE_URL || 'postgres://localhost:5432/annot'
+const db    = pgPromise()(dbUrl)
+const port  = process.env.PORT || 3000
 
 const app = express()
 app.use(express.static(path.resolve(__dirname, 'dist')))
@@ -174,4 +175,6 @@ app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 })
 
-app.listen(process.env.PORT || 3000)
+app.listen(port, () => {
+  console.log(`Now listening on port ${port}`)
+})
