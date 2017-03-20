@@ -11,12 +11,12 @@ interface Props {
 class AnnotationDisplay extends React.Component<Props, {}> {
   render() {
     return (
-      <div className="card annotation-display">
+      <div className="card card-display">
         <div className="card-header">
           { this.props.annotation.title }
         </div>
-        <div className="card-block">
-          <div className="card-text">
+        <div className="card-block tab-pane-body-container">
+          <div className="card-text text-body">
             { this.props.annotation.body }
           </div>
         </div>

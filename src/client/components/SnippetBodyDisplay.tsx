@@ -44,7 +44,7 @@ class SnippetBodyDisplay extends React.Component<Props, {}> {
     }
 
     return (
-      <div className="snippet-body">
+      <div className="text-body">
           { chunks }
       </div>
     )

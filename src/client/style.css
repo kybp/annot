@@ -1,6 +1,11 @@
-.annotation-display {
+.empty-card-display {
     margin-bottom: 0;
     overflow: auto;
+    height: 100%;
+}
+
+.card-display {
+    padding-bottom: 53px;
     height: 100%;
 }
 
@@ -8,23 +13,12 @@
     padding: .25rem 1.25rem;
 }
 
-.empty-snippet-display {
-    margin-bottom: 0;
+.tab-pane-body-container {
     overflow: auto;
     height: 100%;
 }
 
-.snippet-display {
-    padding-bottom: 53px;
-    height: 100%;
-}
-
-.snippet-tab-pane-container {
-    overflow: auto;
-    height: 100%;
-}
-
-.snippet-body {
+.text-body {
     height: 0;
     white-space: pre;
 }
